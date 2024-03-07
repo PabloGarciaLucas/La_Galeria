@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,20 +44,21 @@ public class CategoriasControllerRest {
 		return new ResponseEntity<>("Categoria insertada correctamente", HttpStatus.OK);
 	}
 
-	@PutMapping("/categorias")
-	public ResponseEntity actualizarCategorias(@RequestBody CategoriaEntity categoria) {
-		categoriaRepository.save(categoria);
-
-		return new ResponseEntity<>("Categoría actualizada correctamente", HttpStatus.OK);
+	@PatchMapping("/categorias/{id}")
+	public ResponseEntity actualizarCategoria(@RequestBody CategoriaEntity categoria) {
+	categoriaRepository.save(categoria);
+	return new ResponseEntity<>("Categoria actualizada con éxito", HttpStatus.OK);
 	}
-
-	@DeleteMapping("/categorias")
-	public ResponseEntity borrarCategorias(@RequestBody CategoriaEntity categoria) {
-
-		categoria.setActivo(0);
-		categoriaRepository.save(categoria);
-
-		return new ResponseEntity<>("Categoría borrada correctamente", HttpStatus.OK);
+	
+	@DeleteMapping("/categorias/{id}")
+	public ResponseEntity borrarCategoria(@PathVariable("id") Integer id) {
+	CategoriaEntity categoria = categoriaRepository.findById(String.valueOf(id)).orElse(null);
+	if (categoria != null) {
+	categoria.setActivo(0);
+	categoriaRepository.save(categoria);
+	return new ResponseEntity<>("Categoria borrada con éxito", HttpStatus.OK);
+	} else {
+	return new ResponseEntity<>("No se encontró la categoría", HttpStatus.NOT_FOUND);
 	}
-
+	}
 }
