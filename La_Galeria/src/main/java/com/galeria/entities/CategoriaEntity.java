@@ -31,10 +31,10 @@ public class CategoriaEntity {
     @Column(name = "Activo")
     private Integer activo;
 
-    @OneToMany(mappedBy = "categoria")
-    @JsonIgnore
-    private Set<ProductoEntity> productos;
-    
+//    @OneToMany(mappedBy = "categoria")
+//    @JsonIgnore
+//   private Set<ProductoEntity> productos;
+//    
 
 	public CategoriaEntity() {
 		super();
@@ -45,15 +45,7 @@ public class CategoriaEntity {
 		this.id = id;
 	}
 
-	public CategoriaEntity(String id, String nombre, String descripcion, Integer activo,
-			Set<ProductoEntity> productos) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.activo = activo;
-		this.productos = productos;
-	}
+	
 	
 
 	public CategoriaEntity(String id, String nombre) {
@@ -110,11 +102,11 @@ public class CategoriaEntity {
 		this.activo = activo;
 	}
 
-	public Set<ProductoEntity> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(Set<ProductoEntity> productos) {
-		this.productos = productos;
-	}
+//	public Set<ProductoEntity> getProductos() {
+//		return productos;
+//	}
+//
+//	public void setProductos(Set<ProductoEntity> productos) {
+//		this.productos = productos;
+//	}
 }
