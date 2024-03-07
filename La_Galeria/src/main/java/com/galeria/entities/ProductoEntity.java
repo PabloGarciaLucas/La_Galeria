@@ -1,6 +1,5 @@
 package com.galeria.entities;
 
-
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -21,37 +20,30 @@ import jakarta.persistence.Table;
 @Table(name = "productos")
 public class ProductoEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Producto")
-    private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_Producto")
+	private String id;
 
-    @Column(name = "Nombre", nullable = false)
-    private String nombre;
+	@Column(name = "Nombre", nullable = false)
+	private String nombre;
 
-    @Column(name = "Descripcion")
-    private String descripcion;
+	@Column(name = "Descripcion")
+	private String descripcion;
 
-    @Column(name = "Precio")
-    private Double precio;
+	@Column(name = "Precio")
+	private Double precio;
 
-    @Column(name = "CantidadEnStock")
-    private Integer cantidadEnStock;
+	@Column(name = "CantidadEnStock")
+	private Integer cantidadEnStock;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_Categoria")
-    private CategoriaEntity categoria;
-    
-    @OneToMany(mappedBy = "producto")
-    @JsonIgnore
-    private Set<DetallePedidoEntity> detallePedidos;
-    
-    
+	@ManyToOne
+	@JoinColumn(name = "ID_Categoria")
+	private CategoriaEntity categoria;
 
-
-
-
-
+	@OneToMany(mappedBy = "producto")
+	@JsonIgnore
+	private Set<DetallePedidoEntity> detallePedidos;
 
 	public ProductoEntity(Integer cantidadEnStock) {
 		super();
@@ -161,6 +153,5 @@ public class ProductoEntity {
 	public void setDetallePedidos(Set<DetallePedidoEntity> detallePedidos) {
 		this.detallePedidos = detallePedidos;
 	}
-    
-    
+
 }
