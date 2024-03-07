@@ -56,7 +56,7 @@ public class PedidoEntity {
 	public PedidoEntity(String id, User usuario, String fechaPedido) {
 		super();
 		this.id = id;
-		this.cliente = cliente;
+		this.usuario = usuario;
 		this.fechaPedido = fechaPedido;
 	}
 
