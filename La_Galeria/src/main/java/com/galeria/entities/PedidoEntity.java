@@ -24,41 +24,47 @@ public class PedidoEntity {
 	@Column(name = "ID_Pedido")
 	private String id;
 
-	@ManyToOne
-	@JoinColumn(name = "ID_Cliente")
-	@JsonBackReference
-	private User usuario;
+//	@ManyToOne
+//	@JoinColumn(name = "user_id")
+//	@JsonBackReference
+//	private User usuario;
 
 	@Column(name = "FechaPedido")
 	private String fechaPedido;
 
-	@OneToMany(mappedBy = "pedido")
-	@JsonManagedReference
-	private Set<DetallePedidoEntity> detallePedidos;
+//	@OneToMany(mappedBy = "pedido")
+//	@JsonManagedReference
+//	private Set<DetallePedidoEntity> detallePedidos;
 
 	
-	public PedidoEntity(User usuario) {
-		super();
-		this.usuario = usuario;
-	}
+//	public PedidoEntity(User usuario) {
+//		super();
+//		this.usuario = usuario;
+//	}
 
 	public PedidoEntity(String id) {
 		super();
 		this.id = id;
 	}
 
-	public PedidoEntity(String id, User usuario) {
+	public PedidoEntity(String id, String fechaPedido) {
 		super();
 		this.id = id;
-		this.usuario = usuario;
-	}
-
-	public PedidoEntity(String id, User usuario, String fechaPedido) {
-		super();
-		this.id = id;
-		this.usuario = usuario;
 		this.fechaPedido = fechaPedido;
 	}
+
+//	public PedidoEntity(String id, User usuario) {
+//		super();
+//		this.id = id;
+//		this.usuario = usuario;
+//	}
+
+//	public PedidoEntity(String id, User usuario, String fechaPedido) {
+//		super();
+//		this.id = id;
+//		this.usuario = usuario;
+//		this.fechaPedido = fechaPedido;
+//	}
 
 	public PedidoEntity() {
 		super();
@@ -72,13 +78,13 @@ public class PedidoEntity {
 		this.id = id;
 	}
 
-	public User getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
-	}
+//	public User getUsuario() {
+//		return usuario;
+//	}
+//
+//	public void setUsuario(User usuario) {
+//		this.usuario = usuario;
+//	}
 
 	public String getFechaPedido() {
 		return fechaPedido;
@@ -88,12 +94,12 @@ public class PedidoEntity {
 		this.fechaPedido = fechaPedido;
 	}
 
-	public Set<DetallePedidoEntity> getDetallePedidos() {
-		return detallePedidos;
-	}
-
-	public void setDetallePedidos(Set<DetallePedidoEntity> detallePedidos) {
-		this.detallePedidos = detallePedidos;
-	}
+//	public Set<DetallePedidoEntity> getDetallePedidos() {
+//		return detallePedidos;
+//	}
+//
+//	public void setDetallePedidos(Set<DetallePedidoEntity> detallePedidos) {
+//		this.detallePedidos = detallePedidos;
+//	}
 
 }
