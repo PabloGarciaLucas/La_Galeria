@@ -45,16 +45,18 @@ public class CategoriasControllerRest {
 		return new ResponseEntity<>("Categoria insertada correctamente", HttpStatus.OK);
 	}
 
-	@PutMapping("/categorias/{id}")
-	public ResponseEntity actualizarCategoria(@PathVariable Long id, @RequestBody CategoriaEntity categoria) {
-	    Optional<CategoriaEntity> categoriaExistente = categoriaRepository.findById(String.valueOf(id));
-	    if (categoriaExistente.isPresent()) {
-	        CategoriaEntity categoriaActualizada = categoriaExistente.get();
-	        categoriaRepository.save(categoriaActualizada);
-	        return new ResponseEntity<>("Categoría actualizada con éxito", HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>("Categoría no encontrada", HttpStatus.NOT_FOUND);
-	    }
+	@PutMapping("/categorias")
+	public ResponseEntity actualizarCategoria(@RequestBody CategoriaEntity categoria) {
+		categoriaRepository.save(categoria);
+		 return new ResponseEntity<>("Categoría actualizada con éxito", HttpStatus.OK);
+//	    Optional<CategoriaEntity> categoriaExistente = categoriaRepository.findById(String.valueOf(id));
+//	    if (categoriaExistente.isPresent()) {
+//	        CategoriaEntity categoriaActualizada = categoriaExistente.get();
+//	        categoriaRepository.save(categoriaActualizada);
+//	        return new ResponseEntity<>("Categoría actualizada con éxito", HttpStatus.OK);
+//	    } else {
+//	        return new ResponseEntity<>("Categoría no encontrada", HttpStatus.NOT_FOUND);
+//	    }
 	}
 
 	
