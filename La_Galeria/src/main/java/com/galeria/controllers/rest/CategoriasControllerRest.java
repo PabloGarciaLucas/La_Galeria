@@ -1,6 +1,7 @@
 package com.galeria.controllers.rest;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javax.naming.NamingException;
 
@@ -44,11 +45,18 @@ public class CategoriasControllerRest {
 		return new ResponseEntity<>("Categoria insertada correctamente", HttpStatus.OK);
 	}
 
-	@PatchMapping("/categorias/{id}")
-	public ResponseEntity actualizarCategoria(@RequestBody CategoriaEntity categoria) {
-	categoriaRepository.save(categoria);
-	return new ResponseEntity<>("Categoria actualizada con éxito", HttpStatus.OK);
+	@PutMapping("/categorias/{id}")
+	public ResponseEntity actualizarCategoria(@PathVariable Long id, @RequestBody CategoriaEntity categoria) {
+	    Optional<CategoriaEntity> categoriaExistente = categoriaRepository.findById(String.valueOf(id));
+	    if (categoriaExistente.isPresent()) {
+	        CategoriaEntity categoriaActualizada = categoriaExistente.get();
+	        categoriaRepository.save(categoriaActualizada);
+	        return new ResponseEntity<>("Categoría actualizada con éxito", HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>("Categoría no encontrada", HttpStatus.NOT_FOUND);
+	    }
 	}
+
 	
 	@DeleteMapping("/categorias/{id}")
 	public ResponseEntity borrarCategoria(@PathVariable("id") Integer id) {
