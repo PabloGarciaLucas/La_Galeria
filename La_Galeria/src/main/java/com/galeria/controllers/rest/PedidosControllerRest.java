@@ -44,6 +44,6 @@ public class PedidosControllerRest {
 	@PutMapping("/pedidos")
 	public ResponseEntity actualizarPedido(@RequestBody PedidoEntity pedido) {
 		pedidoRepository.save(pedido);
-		 return new ResponseEntity<>("Pedido insertado con éxito", HttpStatus.OK);
+		 return new ResponseEntity<>("Pedido actualizado con éxito", HttpStatus.OK);
 	}
 }
