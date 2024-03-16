@@ -31,7 +31,6 @@ public class UsersControllerRest {
 		return users;
 	}
 
-	//error
 	@PostMapping("/users")
 	public ResponseEntity insertarUsers(@RequestBody User user)
 			throws ClassNotFoundException, SQLException, NamingException {
