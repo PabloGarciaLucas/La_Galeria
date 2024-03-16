@@ -32,9 +32,9 @@ public class PedidoEntity {
 	@Column(name = "FechaPedido")
 	private String fechaPedido;
 
-//	@OneToMany(mappedBy = "pedido")
-//	@JsonManagedReference
-//	private Set<DetallePedidoEntity> detallePedidos;
+	@OneToMany(mappedBy = "pedido")
+	@JsonManagedReference
+	private Set<DetallePedidoEntity> detallePedidos;
 
 	
 	public PedidoEntity(User usuario) {
@@ -94,12 +94,12 @@ public class PedidoEntity {
 		this.fechaPedido = fechaPedido;
 	}
 
-//	public Set<DetallePedidoEntity> getDetallePedidos() {
-//		return detallePedidos;
-//	}
-//
-//	public void setDetallePedidos(Set<DetallePedidoEntity> detallePedidos) {
-//		this.detallePedidos = detallePedidos;
-//	}
+	public Set<DetallePedidoEntity> getDetallePedidos() {
+		return detallePedidos;
+	}
+
+	public void setDetallePedidos(Set<DetallePedidoEntity> detallePedidos) {
+		this.detallePedidos = detallePedidos;
+	}
 
 }
