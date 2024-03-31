@@ -26,14 +26,13 @@ public class PedidoEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	@JsonBackReference
 	private User usuario;
 
 	@Column(name = "FechaPedido")
 	private String fechaPedido;
 
 	@OneToMany(mappedBy = "pedido")
-	@JsonManagedReference
+	@JsonBackReference
 	private Set<DetallePedidoEntity> detallePedidos;
 
 	

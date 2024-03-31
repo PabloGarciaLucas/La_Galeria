@@ -23,12 +23,10 @@ public class DetallePedidoEntity {
 	
 	@ManyToOne
     @JoinColumn(name = "ID_Pedido")
-	@JsonBackReference
     private PedidoEntity pedido;
 	
 	@OneToOne
 	@JoinColumn(name="ID_Producto")
-	@JsonBackReference
 	private ProductoEntity producto;
 	
     @Column(name = "Cantidad")
