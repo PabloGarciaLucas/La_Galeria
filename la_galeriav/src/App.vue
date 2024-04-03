@@ -1,7 +1,7 @@
 <template>
-  <nav>
+  <nav id="app">
     <router-link to="/">Inicio</router-link> |
-    <router-link to="/solicitarProducto">Solcitar un Producto</router-link>
+    <router-link to="/solicitarProducto">Solicitar un Producto</router-link> |
     <router-link to="/dudas">Dudas</router-link> |
     <router-link to="/login">Log In</router-link>
   </nav>
@@ -19,6 +19,8 @@
 
 nav {
   padding: 30px;
+  background-color: blue;
+  border-color: black;
 }
 
 nav a {

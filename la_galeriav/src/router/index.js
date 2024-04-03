@@ -1,4 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import Inicio from '../views/Inicio.vue'
+import LogIn from '../views/LogIn.vue'
+import Dudas from '../views/Dudas.vue'
+import SolicitarProducto from '../views/SolicitarProducto.vue'
+import PersonalizarCoctel from '../components/PersonalizarCoctel.vue'
+import SolicitarCoctel from '../components/SolicitarCoctel.vue'
 
 const routes = [
   {
