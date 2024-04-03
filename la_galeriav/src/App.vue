@@ -18,14 +18,19 @@
 }
 
 nav {
-  padding: 30px;
   background-color: blue;
   border-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  z-index: 100;
 }
 
 nav a {
   font-weight: bold;
   color: #2c3e50;
+  transition: opacity .5s ease-out .25s;
 }
 
 nav a.router-link-exact-active {
