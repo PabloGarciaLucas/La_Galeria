@@ -1,5 +1,5 @@
 <template>
-  <nav id="app">
+  <nav id="app" @click="toggleFade">
     <router-link to="/">Inicio</router-link> |
     <router-link to="/solicitarProducto">Solicitar un Producto</router-link> |
     <router-link to="/dudas">Dudas</router-link> |
@@ -33,7 +33,23 @@ nav a {
   transition: opacity .5s ease-out .25s;
 }
 
+nav a.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
 nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+
+<script>
+  export default {
+    methods: {
+      toggleFade() {
+        const link = event.target;
+        link.classList.toggle("fade-out");
+      }
+    },
+  }
+</script>
