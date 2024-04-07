@@ -1,28 +1,42 @@
 <template>
-    <div id="app">
-        <h1>Esta es la página de LogIn</h1>
+    <div id="containerLogIn">
+        <h1 class="tituloLogIn">Log In</h1>
+        <form class="formularioLogIn">
+            <input type="text" class="rounded" placeholder="Username">
+            <input type="password" class="rounded" placeholder="Password">
+            <button class="login">Log In</button>
+        </form>
     </div>
 </template>
 
 <style>
-    #app {
+    #containerLogIn {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
+        background-color: #F0F0F0;
     }
 
-    .center-content {
-        text-align: center;
+    .tituloLogIn {
+        color: blue;
     }
 
-    .center-image {
-        width: 900px;
-        height: 900px;
+    .rounded {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 300px;
     }
 
-    p {
-        font-weight: bolder;
-        font-size: xx-large;
+    .login {
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
     }
 </style>
