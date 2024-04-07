@@ -20,7 +20,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     #containerForo {
         display: flex;
         justify-content: center;
