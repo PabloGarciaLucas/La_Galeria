@@ -49,7 +49,9 @@ export default {
             try {
                 const respuesta = await fetch(http://localhost:8080/galeria/v1/productos);
                 const data = await.response.json();
-                this.respuesta = data.
+                this.respuesta = data.drinks;
+            } catch (error) {
+                console.error("Se ha producido un error: " + error);
             }
         },
         async generarFactura() {
