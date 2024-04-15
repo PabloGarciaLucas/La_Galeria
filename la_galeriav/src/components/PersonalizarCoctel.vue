@@ -1,7 +1,7 @@
 <template>
     <div id="cristaleriaContainer">
         <div v-for="(cristaleria, index) in cristalerias" :key="index" class="caja">
-            <img src="cristaleria.strDrinkThumb" alt:"cristaleria.strDrink" class="cristaleriaImage">
+            <img src="cristaleria.strDrinkThumb" alt="cristaleria.strDrink" class="cristaleriaImage">
         </div>
     </div>
 
@@ -9,7 +9,7 @@
 
     <div id="coctelContainer">
         <div v-for="(coctel, index) in cocteles" :key="index" class="caja">
-            <img src="coctel.strDrinkThumb" alt:"coctel.strDrink" class="coctelImage">
+            <img src="coctel.strDrinkThumb" alt="coctel.strDrink" class="coctelImage">
         </div>
         <button @click="generarFactura">Solicitar Pedido</button>
     </div>
@@ -64,12 +64,12 @@
 </style>
 
 <script>
-import { jsPDF} from 'jspdf'
+//import { jsPDF} from 'jspdf'
 
 export default {
     data() {
         return {
-            cocteles: [];
+            cocteles: []
         }
     },
     mounted() {
@@ -78,8 +78,8 @@ export default {
     methods: {
         async fetchCocteles() {
             try {
-                const respuesta = await fetch(http://localhost:8080/galeria/v1/productos);
-                const data = await.response.json();
+                //const respuesta = await fetch(http://localhost:8080/galeria/v1/productos);
+                const data = await response.json();
                 this.respuesta = data.drinks;
             } catch (error) {
                 console.error("Se ha producido un error: " + error);
