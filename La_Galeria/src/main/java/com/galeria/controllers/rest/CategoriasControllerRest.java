@@ -21,8 +21,6 @@ import com.galeria.repositories.CategoriasRepository;
 @RestController
 @RequestMapping("/v1")
 public class CategoriasControllerRest {
-
-	//Problema (insertarCategorias(String, String, String)" because "this.categoriaDAO" is null)
 	
 	@Autowired
 	CategoriaService categoriasServicio;

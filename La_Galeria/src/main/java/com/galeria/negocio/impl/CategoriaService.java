@@ -15,7 +15,7 @@ import com.galeria.negocio.ICategoriaService;
 @Component
 public class CategoriaService implements ICategoriaService {
 
-	//@Autowired (con autowired no funciona el programa, hay que ponerlo sin el autowired)
+	@Autowired
 	ICategoriasDAO categoriaDAO;
 	
 	@Override
