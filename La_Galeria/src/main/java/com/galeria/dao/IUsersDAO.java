@@ -15,6 +15,4 @@ public interface IUsersDAO {
 	public Integer insertarUsuarios(String userName, String userPasswd, String userEmail) throws ClassNotFoundException, SQLException, NamingException;
 
 	public Integer actualizarUsuarios(Integer userID, String userName, String userPasswd, String userEmail) throws ClassNotFoundException, SQLException, NamingException;
-	
-	public Integer borrarUsuarios(Integer userID) throws ClassNotFoundException, SQLException, NamingException;
 }

@@ -47,6 +47,13 @@ import jakarta.persistence.JoinColumn;
 			this.roles = roles;
 		}
 
+		public User(String name, String password, String email) {
+			super();
+			this.name = name;
+			this.password = password;
+			this.email = email;
+		}
+
 		public User() {
 			super();
 		}
