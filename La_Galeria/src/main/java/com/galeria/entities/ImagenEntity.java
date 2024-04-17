@@ -38,6 +38,12 @@ public class ImagenEntity {
 		this.descripcion = descripcion;
 	}
 
+	public ImagenEntity(String descripcion, Blob imagen) {
+		super();
+		this.descripcion = descripcion;
+		this.imagen = imagen;
+	}
+
 	public ImagenEntity(Integer idImagen, String descripcion, Blob imagen) {
 		super();
 		this.idImagen = idImagen;

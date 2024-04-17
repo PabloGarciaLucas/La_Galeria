@@ -19,6 +19,11 @@ public class ImagenesDTO {
 		this.idImagen = idImagen;
 		this.descripcion = descripcion;
 	}
+	public ImagenesDTO(String descripcion, Blob imagen) {
+		super();
+		this.descripcion = descripcion;
+		this.imagen = imagen;
+	}
 	public ImagenesDTO(Integer idImagen, String descripcion, Blob imagen) {
 		super();
 		this.idImagen = idImagen;

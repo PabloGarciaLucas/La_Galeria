@@ -1,0 +1,29 @@
+package com.galeria.repositories;
+
+import java.sql.Blob;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import com.galeria.dtos.ImagenesDTO;
+import com.galeria.entities.ImagenEntity;
+
+public interface ImagenesRepository extends CrudRepository<ImagenEntity, Integer> {
+
+	@Query(value= "select new com.galeria.dtos.ImagenesDTO (i.idImagen, i.descripcion, i.imagen) "
+			+ " from com.galeria.entities.ImagenEntity i "
+			+ " where i.idImagen = :idImagen "
+			+ " AND i.descripcion like CONCAT ('%',:descripcion,'%') "
+			+ " AND i.imagen like CONCAT ('%',:imagen,'%') ")
+	List<ImagenesDTO>buscarImagenes(@Param("idImagen") Integer idImagen,
+			@Param("descripcion") String descripcion,
+			@Param("imagen") Blob imagen);
+	
+	@Query(value="select new com.galeria.dtos.ImagenesDTO (i.idImagen, i.descripcion) "
+			+ " from com.galeria.entities.ImagenesEntity i ")
+	List<ImagenesDTO>buscarImagenesParaCombo(@Param("idImagen") Integer idImagen,
+			@Param("descripcion") String descripcion);
+	
+}
