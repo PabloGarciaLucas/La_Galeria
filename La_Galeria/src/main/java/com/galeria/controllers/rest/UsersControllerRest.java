@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.galeria.entities.User;
+import com.galeria.negocio.impl.UsersService;
 import com.galeria.repositories.UserRepository;
 
 @RestController
@@ -22,28 +23,29 @@ import com.galeria.repositories.UserRepository;
 public class UsersControllerRest {
 
 	@Autowired
-	UserRepository userRepository;
-
-	@GetMapping("/users")
-	public Iterable<User> obtenerTodosUsers() {
-		Iterable<User> users = userRepository.findAll();
-
-		return users;
+	UsersService usuariosServicio;
+	@Autowired
+	UserRepository usuarioRepository;
+	
+	@GetMapping("/usuarios")
+	public Iterable<User> obtenerTodosUsuarios(){
+		Iterable<User> usuarios = usuarioRepository.findAll();
+		
+		return usuarios;
 	}
-
-	@PostMapping("/users")
-	public ResponseEntity insertarUsers(@RequestBody User user)
-			throws ClassNotFoundException, SQLException, NamingException {
-
-		userRepository.save(user);
-
+	
+	@PostMapping("/usuarios")
+	public ResponseEntity insertarUsuarios(@RequestBody User user) throws ClassNotFoundException, SQLException, NamingException {
+		
+		Integer resultado = usuariosServicio.insertarUsuarios(user.getUserName(), user.getUserPasswd(), user.getUserEmail());
 		return new ResponseEntity<>("Usuario insertado correctamente", HttpStatus.OK);
 	}
-
-	@PutMapping("/users")
-	public ResponseEntity actualizarUsers(@RequestBody User user) {
-		userRepository.save(user);
-		return new ResponseEntity<>("Usuario actualizado con éxito", HttpStatus.OK);
+	
+	@PutMapping("/usuarios")
+	public ResponseEntity actualizarUsuarios(@RequestBody User user) {
+		usuarioRepository.save(user);
+		
+		return new ResponseEntity<>("Usuario actualizado correctamente", HttpStatus.OK);
 	}
 
 }
