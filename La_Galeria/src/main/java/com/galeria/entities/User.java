@@ -25,33 +25,33 @@ import jakarta.persistence.JoinColumn;
 		private Integer userID;
 		
 		@Column(name="user_name")
-		private String name;
+		private String userName;
 		
 		@Column(name="user_passwd")
-		private String password;
+		private String userPasswd;
 		
 		@Column(name="user_email")
-		private String email;
+		private String userEmail;
 		
 		@ElementCollection(fetch= FetchType.EAGER)
 		@CollectionTable(name="roles",joinColumns = @JoinColumn(name="user_id"))
 		@Column(name="user_role")
-		private List<String> roles;
+		private List<String> user_role;
 
-		public User(Integer userID, String name, String password, String email, List<String> roles) {
+		public User(Integer userID, String userName, String userPasswd, String userEmail, List<String> user_role) {
 			super();
 			this.userID = userID;
-			this.name = name;
-			this.password = password;
-			this.email = email;
-			this.roles = roles;
+			this.userName = userName;
+			this.userPasswd = userPasswd;
+			this.userEmail = userEmail;
+			this.user_role = user_role;
 		}
 
-		public User(String name, String password, String email) {
+		public User(String userName, String userPasswd, String userEmail) {
 			super();
-			this.name = name;
-			this.password = password;
-			this.email = email;
+			this.userName = userName;
+			this.userPasswd = userPasswd;
+			this.userEmail = userEmail;
 		}
 
 		public User() {
@@ -68,40 +68,37 @@ import jakarta.persistence.JoinColumn;
 			this.userID = userID;
 		}
 
-		public String getName() {
-			return name;
+		public String getUserName() {
+			return userName;
 		}
 
-		public void setName(String name) {
-			this.name = name;
+		public void setUserName(String userName) {
+			this.userName = userName;
 		}
 
-		public String getPassword() {
-			return password;
+		public String getUserPasswd() {
+			return userPasswd;
 		}
 
-		public void setPassword(String password) {
-			this.password = password;
+		public void setUserPasswd(String userPasswd) {
+			this.userPasswd = userPasswd;
 		}
 
-		public String getEmail() {
-			return email;
+		public String getUserEmail() {
+			return userEmail;
 		}
 
-		public void setEmail(String email) {
-			this.email = email;
+		public void setUserEmail(String userEmail) {
+			this.userEmail = userEmail;
 		}
 
-		public List<String> getRoles() {
-			return roles;
+		public List<String> getUser_role() {
+			return user_role;
 		}
 
-		public void setRoles(List<String> roles) {
-			this.roles = roles;
+		public void setUser_role(List<String> user_role) {
+			this.user_role = user_role;
 		}
-		
-		
-		
 		
 	}
 
