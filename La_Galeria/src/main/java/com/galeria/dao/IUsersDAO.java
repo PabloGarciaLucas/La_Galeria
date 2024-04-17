@@ -9,7 +9,7 @@ import com.galeria.dtos.UsersDTO;
 
 public interface IUsersDAO {
 	
-	public List<UsersDTO> buscarUsuarios(Integer userID, String userName, String userPasswd, String userEmail)
+	public List<UsersDTO> buscarUsuarios(Integer userID, String userName, String userPasswd, String userEmail, List<String> userRole)
 			throws ClassNotFoundException, SQLException, NamingException;
 
 	public Integer insertarUsuarios(String userName, String userPasswd, String userEmail) throws ClassNotFoundException, SQLException, NamingException;

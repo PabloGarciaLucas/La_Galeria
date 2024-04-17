@@ -8,7 +8,7 @@ import javax.naming.NamingException;
 import com.galeria.dtos.UsersDTO;
 
 public interface IUsersService {
-	public List<UsersDTO> buscarUsuarios(Integer userID, String userName, String userPasswd, String userEmail)
+	public List<UsersDTO> buscarUsuarios(Integer userID, String userName, String userPasswd, String userEmail, List<String> userRole)
 			throws ClassNotFoundException, SQLException, NamingException;
 
 	public Integer insertarUsuarios(String userName, String userPasswd, String userEmail) throws ClassNotFoundException, SQLException, NamingException;

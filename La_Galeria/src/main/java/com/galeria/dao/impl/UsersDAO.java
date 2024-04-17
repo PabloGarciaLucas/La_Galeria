@@ -20,10 +20,10 @@ public class UsersDAO implements IUsersDAO {
 	UserRepository userRepository;
 	
 	@Override
-	public List<UsersDTO> buscarUsuarios(Integer userID, String userName, String userPasswd, String userEmail)
+	public List<UsersDTO> buscarUsuarios(Integer userID, String userName, String userPasswd, String userEmail, List<String> userRole)
 			throws ClassNotFoundException, SQLException, NamingException {
 		
-		return userRepository.buscarUsuarios(userID, userName, userPasswd, userEmail);
+		return userRepository.buscarUsuarios(userID, userName, userPasswd, userEmail, userRole);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class UsersDAO implements IUsersDAO {
 		User userEntity = new User(userName, userPasswd, userEmail);
 		userRepository.save(userEntity);
 		
-		return userEntity.getId();
+		return userEntity.getUserID();
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class UsersDAO implements IUsersDAO {
 		User userEntity = new User(userName, userPasswd, userEmail);
 		userRepository.save(userEntity);
 		
-		return userEntity.getId();
+		return userEntity.getUserID();
 	}
 
 }

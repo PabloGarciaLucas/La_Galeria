@@ -1,10 +1,13 @@
 package com.galeria.dtos;
 
+import java.util.List;
+
 public class UsersDTO {
 	private Integer userID;
 	private String userName;
 	private String userPasswd;
 	private String userEmail;
+	private List<String> user_role;
 	
 	public UsersDTO() {
 		super();
@@ -22,6 +25,15 @@ public class UsersDTO {
 		this.userName = userName;
 		this.userPasswd = userPasswd;
 		this.userEmail = userEmail;
+	}
+
+	public UsersDTO(Integer userID, String userName, String userPasswd, String userEmail, List<String> user_role) {
+		super();
+		this.userID = userID;
+		this.userName = userName;
+		this.userPasswd = userPasswd;
+		this.userEmail = userEmail;
+		this.user_role = user_role;
 	}
 
 	public Integer getUserID() {
@@ -54,6 +66,14 @@ public class UsersDTO {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public List<String> getUser_role() {
+		return user_role;
+	}
+
+	public void setUser_role(List<String> user_role) {
+		this.user_role = user_role;
 	}
 	
 }

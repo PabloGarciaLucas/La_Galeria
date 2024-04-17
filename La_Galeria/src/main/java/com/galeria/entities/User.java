@@ -22,7 +22,7 @@ import jakarta.persistence.JoinColumn;
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name="user_id")
-		private Integer id;
+		private Integer userID;
 		
 		@Column(name="user_name")
 		private String name;
@@ -38,9 +38,9 @@ import jakarta.persistence.JoinColumn;
 		@Column(name="user_role")
 		private List<String> roles;
 
-		public User(Integer id, String name, String password, String email, List<String> roles) {
+		public User(Integer userID, String name, String password, String email, List<String> roles) {
 			super();
-			this.id = id;
+			this.userID = userID;
 			this.name = name;
 			this.password = password;
 			this.email = email;
@@ -58,12 +58,14 @@ import jakarta.persistence.JoinColumn;
 			super();
 		}
 
-		public Integer getId() {
-			return id;
+		
+
+		public Integer getUserID() {
+			return userID;
 		}
 
-		public void setId(Integer id) {
-			this.id = id;
+		public void setUserID(Integer userID) {
+			this.userID = userID;
 		}
 
 		public String getName() {
