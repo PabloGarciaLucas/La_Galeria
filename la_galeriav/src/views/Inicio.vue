@@ -56,35 +56,35 @@
 </template>
 
 <style scoped>
-    #container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+  #container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    font-family: Arial, sans-serif; 
+  }
 
-    .center-content {
-        text-align: center;
-    }
+  .center-content {
+    text-align: center;
+  }
 
-    .center-image {
-        width: 900px;
-        height: 900px;
-    }
+  p {
+    font-size: 1.2rem; 
+    margin-bottom: 20px;
+  }
 
-    p {
-        font-weight: bolder;
-        font-size: xx-large;
-    }
+  .descripcion {
+    max-width: 600px; 
+    text-align: justify; 
+  }
 
-    .descripcion {
-        text-align: left;
-    }
-
-    .descripcion:nth-child(even) {
-        text-align: right;
-    }
+  .descripcion:nth-child(even) {
+    text-align: justify; 
+  }
 </style>
+
 
 <script>
 export default {

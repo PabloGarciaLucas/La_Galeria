@@ -1,55 +1,45 @@
 <template>
-  <nav id="app" @click="toggleFade">
-    <router-link to="/">Inicio</router-link> |
-    <router-link to="/solicitarProducto">Solicitar un Producto</router-link> |
-    <router-link to="/dudas">Dudas</router-link> |
-    <router-link to="/login">Log In</router-link>
+  <nav id="app">
+    <router-link to="/" class="nav-link">Inicio</router-link>
+    <router-link to="/solicitarProducto" class="nav-link">Solicitar un Producto</router-link>
+    <router-link to="/dudas" class="nav-link">Dudas</router-link>
+    <router-link to="/login" class="nav-link">Log In</router-link>
   </nav>
   <router-view/>
 </template>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  background-color: blue;
-  border-color: black;
+  background-color: #2c3e50; 
+  padding: 20px 0; 
   position: fixed;
   top: 0;
   left: 0;
-  padding: 20px;
+  width: 100%; 
   z-index: 100;
+  display: flex; 
+  justify-content: center; 
 }
 
-nav a {
+.nav-link {
   font-weight: bold;
-  color: #2c3e50;
-  transition: opacity .5s ease-out .25s;
+  color: #fff; 
+  text-decoration: none;
+  margin: 0 10px; 
 }
 
-nav a.fade-out {
-  opacity: 0;
-  transition: opacity 0.5s ease-out;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.nav-link:hover {
+  color: #b1a6a6; 
 }
 </style>
 
 <script>
   export default {
     methods: {
-      toggleFade() {
-        const link = event.target;
-        link.classList.toggle("fade-out");
-      }
+     
     },
   }
 </script>
