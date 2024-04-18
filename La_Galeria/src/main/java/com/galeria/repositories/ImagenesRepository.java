@@ -16,13 +16,13 @@ public interface ImagenesRepository extends CrudRepository<ImagenEntity, Integer
 			+ " from com.galeria.entities.ImagenEntity i "
 			+ " where i.idImagen = :idImagen "
 			+ " AND i.descripcion like CONCAT ('%',:descripcion,'%') "
-			+ " AND i.imagen like CONCAT ('%',:imagen,'%') ")
+			+ " AND i.imagen = :imagen ")
 	List<ImagenesDTO>buscarImagenes(@Param("idImagen") Integer idImagen,
 			@Param("descripcion") String descripcion,
 			@Param("imagen") Blob imagen);
 	
 	@Query(value="select new com.galeria.dtos.ImagenesDTO (i.idImagen, i.descripcion) "
-			+ " from com.galeria.entities.ImagenesEntity i ")
+			+ " from com.galeria.entities.ImagenEntity i ")
 	List<ImagenesDTO>buscarImagenesParaCombo(@Param("idImagen") Integer idImagen,
 			@Param("descripcion") String descripcion);
 	

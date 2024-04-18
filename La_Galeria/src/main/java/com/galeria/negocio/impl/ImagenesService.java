@@ -7,11 +7,13 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.galeria.dao.IImagenesDAO;
 import com.galeria.dtos.ImagenesDTO;
 import com.galeria.negocio.IImagenesService;
 
+@Component
 public class ImagenesService implements IImagenesService {
 	
 	@Autowired
