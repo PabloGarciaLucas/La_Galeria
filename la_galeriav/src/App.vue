@@ -13,26 +13,30 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
-  background-color: #2c3e50; 
-  padding: 20px 0; 
+  background-color: #2c3e50;
+  padding: 20px 0;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%; 
+  width: 100%;
   z-index: 100;
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
 }
 
 .nav-link {
   font-weight: bold;
-  color: #fff; 
+  color: #fff;
   text-decoration: none;
-  margin: 0 10px; 
+  margin: 0 10px;
 }
 
 .nav-link:hover {
-  color: #b1a6a6; 
+  color: #b1a6a6;
+}
+
+.nav-link.router-link-exact-active {
+  color: #fff; 
 }
 </style>
 
