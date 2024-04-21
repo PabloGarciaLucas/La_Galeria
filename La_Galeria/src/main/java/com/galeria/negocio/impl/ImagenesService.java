@@ -18,26 +18,25 @@ public class ImagenesService implements IImagenesService {
 	
 	@Autowired
 	IImagenesDAO imagenesDAO;
-	
-	@Override
-	public List<ImagenesDTO> buscarImagenes(Integer idImagen, String descripcion, Blob imagen)
-			throws ClassNotFoundException, SQLException, NamingException {
 
+	@Override
+	public List<ImagenesDTO> buscarImagenes(Integer idImagen, String descripcion, Byte[] imagen)
+			throws ClassNotFoundException, SQLException, NamingException {
 		return imagenesDAO.buscarImagenes(idImagen, descripcion, imagen);
 	}
 
 	@Override
-	public Integer insertarImagenes(String descripcion, Blob imagen)
+	public Integer insertarImagenes(String descripcion, Byte[] imagen)
 			throws ClassNotFoundException, SQLException, NamingException {
-
 		return imagenesDAO.insertarImagenes(descripcion, imagen);
 	}
 
 	@Override
-	public Integer actualizarImagenes(Integer idImagen, String descripcion, Blob imagen)
+	public Integer actualizarImagenes(Integer idImagen, String descripcion, Byte[] imagen)
 			throws ClassNotFoundException, SQLException, NamingException {
-
 		return imagenesDAO.actualizarImagenes(idImagen, descripcion, imagen);
 	}
+	
+
 
 }

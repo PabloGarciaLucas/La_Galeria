@@ -21,7 +21,7 @@ public class ImagenEntity {
     private String descripcion;
 
     @Column(name = "Imagen", nullable = false)
-    private Blob imagen;
+    private Byte[] imagen;
     
 	public ImagenEntity() {
 		super();
@@ -38,13 +38,13 @@ public class ImagenEntity {
 		this.descripcion = descripcion;
 	}
 
-	public ImagenEntity(String descripcion, Blob imagen) {
+	public ImagenEntity(String descripcion, Byte[] imagen) {
 		super();
 		this.descripcion = descripcion;
 		this.imagen = imagen;
 	}
 
-	public ImagenEntity(Integer idImagen, String descripcion, Blob imagen) {
+	public ImagenEntity(Integer idImagen, String descripcion, Byte[] imagen) {
 		super();
 		this.idImagen = idImagen;
 		this.descripcion = descripcion;
@@ -67,11 +67,11 @@ public class ImagenEntity {
 		this.descripcion = descripcion;
 	}
 
-	public Blob getImagen() {
+	public Byte[] getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(Blob imagen) {
+	public void setImagen(Byte[] imagen) {
 		this.imagen = imagen;
 	}
 	
