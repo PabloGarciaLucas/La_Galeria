@@ -21,14 +21,14 @@ public class ImagenesDAO implements IImagenesDAO {
 	ImagenesRepository imagenesRepository;
 	
 	@Override
-	public List<ImagenesDTO> buscarImagenes(Integer idImagen, String descripcion, Byte[] imagen)
+	public List<ImagenesDTO> buscarImagenes(Integer idImagen, String descripcion, byte[] imagen)
 			throws ClassNotFoundException, SQLException, NamingException {
 		
 		return imagenesRepository.buscarImagenes(idImagen, descripcion, imagen);
 	}
 
 	@Override
-	public Integer insertarImagenes(String descripcion, Byte[] imagen)
+	public Integer insertarImagenes(String descripcion, byte[] imagen)
 			throws ClassNotFoundException, SQLException, NamingException {
 		
 		ImagenEntity imagenEntity = new ImagenEntity(descripcion, imagen);
@@ -38,7 +38,7 @@ public class ImagenesDAO implements IImagenesDAO {
 	}
 
 	@Override
-	public Integer actualizarImagenes(Integer idImagen, String descripcion, Byte[] imagen)
+	public Integer actualizarImagenes(Integer idImagen, String descripcion, byte[] imagen)
 			throws ClassNotFoundException, SQLException, NamingException {
 		
 		ImagenEntity imagenEntity = new ImagenEntity(descripcion, imagen);

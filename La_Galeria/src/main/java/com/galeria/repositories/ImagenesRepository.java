@@ -19,7 +19,7 @@ public interface ImagenesRepository extends CrudRepository<ImagenEntity, Integer
 			+ " AND i.imagen = :imagen ")
 	List<ImagenesDTO>buscarImagenes(@Param("idImagen") Integer idImagen,
 			@Param("descripcion") String descripcion,
-			@Param("imagen") Byte[] imagen);
+			@Param("imagen") byte[] imagen);
 	
 	@Query(value="select new com.galeria.dtos.ImagenesDTO (i.idImagen, i.descripcion) "
 			+ " from com.galeria.entities.ImagenEntity i ")

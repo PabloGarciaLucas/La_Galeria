@@ -10,10 +10,10 @@ import com.galeria.dtos.ImagenesDTO;
 
 
 public interface IImagenesService {
-	public List<ImagenesDTO> buscarImagenes(Integer idImagen, String descripcion, Byte[] imagen)
+	public List<ImagenesDTO> buscarImagenes(Integer idImagen, String descripcion, byte[] imagen)
 			throws ClassNotFoundException, SQLException, NamingException;
 
-	public Integer insertarImagenes(String descripcion, Byte[] imagen) throws ClassNotFoundException, SQLException, NamingException;
+	public Integer insertarImagenes(String descripcion, byte[] imagen) throws ClassNotFoundException, SQLException, NamingException;
 
-	public Integer actualizarImagenes(Integer idImagen, String descripcion, Byte[] imagen) throws ClassNotFoundException, SQLException, NamingException;
+	public Integer actualizarImagenes(Integer idImagen, String descripcion, byte[] imagen) throws ClassNotFoundException, SQLException, NamingException;
 }

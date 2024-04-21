@@ -12,7 +12,7 @@ import com.galeria.dtos.UsersDTO;
 import com.galeria.entities.User;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, String> {
+public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query(value= "select new com.galeria.dtos.UsersDTO (u.userID, u.userName, u.userPasswd, u.userEmail, u.user_role) "
 			+ " from com.galeria.entities.User u "
 			+ " WHERE  u.userID = :userID "

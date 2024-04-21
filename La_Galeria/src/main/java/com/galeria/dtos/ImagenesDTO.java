@@ -5,7 +5,7 @@ import java.sql.Blob;
 public class ImagenesDTO {
 	private Integer idImagen;
 	private String descripcion;
-	private Byte[] imagen;
+	private byte[] imagen;
 	
 	public ImagenesDTO() {
 		super();
@@ -19,12 +19,12 @@ public class ImagenesDTO {
 		this.idImagen = idImagen;
 		this.descripcion = descripcion;
 	}
-	public ImagenesDTO(String descripcion, Byte[] imagen) {
+	public ImagenesDTO(String descripcion, byte[] imagen) {
 		super();
 		this.descripcion = descripcion;
 		this.imagen = imagen;
 	}
-	public ImagenesDTO(Integer idImagen, String descripcion, Byte[] imagen) {
+	public ImagenesDTO(Integer idImagen, String descripcion, byte[] imagen) {
 		super();
 		this.idImagen = idImagen;
 		this.descripcion = descripcion;
@@ -42,10 +42,10 @@ public class ImagenesDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Byte[] getImagen() {
+	public byte[] getImagen() {
 		return imagen;
 	}
-	public void setImagen(Byte[] imagen) {
+	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
 	
