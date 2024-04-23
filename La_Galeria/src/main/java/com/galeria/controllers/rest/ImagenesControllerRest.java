@@ -35,12 +35,6 @@ public class ImagenesControllerRest {
 		return imagenEntity;
 	}
 	
-	@GetMapping("/imagenes/{id}")
-	public ImagenEntity obtenerImagenPorID(@PathVariable("idImagen") Integer id) {
-		return imagenRepository.findById(id).orElse(null);
-	}
-
-	
 	@PostMapping("/imagenes")
 	public ResponseEntity insertarImagenes(@RequestBody ImagenEntity imagenEntity) throws ClassNotFoundException, SQLException, NamingException {
 		
