@@ -64,17 +64,31 @@
 </style>
   
 <script>
-function traerImagen() {
-  fetch("http://localhost:8080/v1/imagenes/1", {
-    mode: "cors"
-  })
-  .then(response => response.json())
-  .then(data => anadeImg(data.imagen));
-}
-
-function anadeImg(base64) {
-  var img = document.createElement('img');
-  img.src = 'data:image/jpeg;base64,'+base64;
-  document.getElementById('container').appendChild(img);
+export default {
+  name: 'Dudas',
+  data() {
+    return {
+      imagenes: []
+    }
+  },
+  methods: {
+    anadeImg(base64) {
+      var img = document.createElement('img');
+      img.src = 'data:image/jpeg;base64,'+base64;
+      document.getElementById('container').appendChild(img);
+    }
+  },
+  mounted() {
+    fetch("http://localhost:8080/galeria/v1/imagenes", {
+      mode: "cors"
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.imagenes = data;
+      this.imagenes.forEach(imagen => {
+        this.anadeImg(imagen);
+      });
+    });
+  }
 }
 </script>

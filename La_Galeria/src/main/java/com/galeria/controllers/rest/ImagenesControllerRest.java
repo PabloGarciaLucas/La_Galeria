@@ -1,6 +1,7 @@
 package com.galeria.controllers.rest;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.naming.NamingException;
 
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.galeria.dtos.ImagenesDTO;
 import com.galeria.entities.ImagenEntity;
 import com.galeria.negocio.impl.ImagenesService;
 import com.galeria.repositories.ImagenesRepository;
@@ -33,6 +36,24 @@ public class ImagenesControllerRest {
 		Iterable<ImagenEntity> imagenEntity = imagenRepository.findAll();
 		
 		return imagenEntity;
+	}
+	
+	@GetMapping("/imagenes/{idImagen}")
+	public ResponseEntity<ImagenEntity>obtenerImagenPorId(@PathVariable("idImagen") Integer idImagen){
+		
+		String idBuscar = idImagen+"";
+		ImagenEntity imagen = imagenRepository.findById(idImagen).get();
+		
+		return new ResponseEntity<>(imagen, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/imagenes", params = {"idImagen", "descripcion", "imagen"})
+	public List<ImagenesDTO>buscarCategoriasConFiltros(@RequestParam(value = "idImagen", required =false) Integer idImagen,
+			@RequestParam(value= "descripcion", required=false) String descripcion,
+			@RequestParam(value= "imagen", required=false) byte[] imagen){
+		List<ImagenesDTO> i = imagenRepository.buscarImagenes(idImagen, descripcion, imagen);
+		
+		return i;
 	}
 	
 	@PostMapping("/imagenes")
