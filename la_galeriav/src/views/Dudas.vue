@@ -76,10 +76,9 @@ export default {
       var img = document.createElement('img');
       img.src = 'data:image/jpeg;base64,'+base64;
       document.getElementById('container').appendChild(img);
-    }
-  },
-  mounted() {
-    fetch("http://localhost:8080/galeria/v1/imagenes", {
+    },
+    traerImagen() {
+    fetch("http://localhost:8081/galeria/v1/imagenes/1", {
       mode: "cors"
     })
     .then(response => response.json())
@@ -90,5 +89,6 @@ export default {
       });
     });
   }
-}
+    }
+  }
 </script>

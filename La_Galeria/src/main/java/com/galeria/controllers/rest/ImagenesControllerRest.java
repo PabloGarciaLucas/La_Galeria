@@ -41,7 +41,6 @@ public class ImagenesControllerRest {
 	@GetMapping("/imagenes/{idImagen}")
 	public ResponseEntity<ImagenEntity>obtenerImagenPorId(@PathVariable("idImagen") Integer idImagen){
 		
-		String idBuscar = idImagen+"";
 		ImagenEntity imagen = imagenRepository.findById(idImagen).get();
 		
 		return new ResponseEntity<>(imagen, HttpStatus.OK);
