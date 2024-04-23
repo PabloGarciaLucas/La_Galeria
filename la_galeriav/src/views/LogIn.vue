@@ -2,7 +2,7 @@
     <div id="containerLogIn">
         <h1 class="tituloLogIn">Log In</h1>
         <form class="formularioLogIn">
-            <input type="email" class="rounded" placeholder="Email"> <!-- Nuevo campo para el correo electrónico -->
+            <input type="email" class="rounded" placeholder="Email">
             <input type="text" class="rounded" placeholder="Username">
             <input type="password" class="rounded" placeholder="Password">
             <button class="login">Log In</button>
@@ -47,3 +47,44 @@
     cursor: pointer;
 }
 </style>
+
+/*<script>
+import { mapActions } from 'vuex'
+
+export default {
+  data () {
+    return {
+      email: '',
+      username: '',
+      password: ''
+    }
+  },
+  methods: {
+    ...mapActions(['login']),
+    handleSubmit () {
+      fetch("http://localhost:8081/galeria/v1/usuarios", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: this.email,
+          username: this.username,
+          password: this.password
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.token) {
+          this.login(data.token)
+        } else {
+          // Manejar error: el servidor no devolvió un token
+        }
+      })
+      .catch(error => {
+        // Manejar error: la petición HTTP falló
+      })
+    }
+  }
+}
+</script>*/
