@@ -8,7 +8,6 @@ import javax.naming.NamingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.galeria.dao.IPedidosDAO;
 import com.galeria.dao.IProductosDAO;
 import com.galeria.dtos.ProductosDTO;
 import com.galeria.negocio.IProductosService;
