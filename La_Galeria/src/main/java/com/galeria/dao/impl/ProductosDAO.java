@@ -33,7 +33,7 @@ public class ProductosDAO implements IProductosDAO{
 	public Integer insertarProductos(String nombre, String descripcion, String precio, String cantidadEnStock)
 			throws ClassNotFoundException, SQLException, NamingException {
 
-		ProductoEntity productoEntity = new ProductoEntity(nombre, descripcion, precio, cantidadEnStock);
+		ProductoEntity productoEntity = new ProductoEntity(nombre, descripcion, Double.parseDouble(precio), Integer.parseInt(cantidadEnStock));
 		productoRepository.save(productoEntity);
 		
 		return Integer.parseInt(productoEntity.getId());
