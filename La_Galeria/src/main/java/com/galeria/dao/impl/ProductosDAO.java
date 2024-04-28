@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import com.galeria.dao.IProductosDAO;
 import com.galeria.dtos.PedidosDTO;
+import com.galeria.dtos.ProductosDTO;
+import com.galeria.entities.PedidoEntity;
+import com.galeria.entities.ProductoEntity;
 import com.galeria.repositories.ProductoRepository;
 
 @Component("ProductosDAO")
@@ -20,17 +23,20 @@ public class ProductosDAO implements IProductosDAO{
 	ProductoRepository productoRepository;
 
 	@Override
-	public List<PedidosDTO> buscarProductos(String id, String nombre, String descripcion, String precio,
+	public List<ProductosDTO> buscarProductos(String id, String nombre, String descripcion, String precio,
 			String cantidadEnStock) throws ClassNotFoundException, SQLException, NamingException {
 		// TODO Auto-generated method stub
-		return null;
+		return productoRepository.buscarProductos(id, nombre, descripcion, precio, cantidadEnStock);
 	}
 
 	@Override
 	public Integer insertarProductos(String nombre, String descripcion, String precio, String cantidadEnStock)
 			throws ClassNotFoundException, SQLException, NamingException {
-		// TODO Auto-generated method stub
-		return null;
+
+		ProductoEntity productoEntity = new ProductoEntity(nombre, descripcion, precio, cantidadEnStock);
+		productoRepository.save(productoEntity);
+		
+		return Integer.parseInt(productoEntity.getId());
 	}
 
 	@Override

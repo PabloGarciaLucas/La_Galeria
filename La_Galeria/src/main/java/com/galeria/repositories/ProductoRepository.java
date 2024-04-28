@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.galeria.dtos.PedidosDTO;
 import com.galeria.dtos.ProductosDTO;
 import com.galeria.entities.ProductoEntity;
 
@@ -22,6 +23,13 @@ public interface ProductoRepository extends CrudRepository<ProductoEntity, Strin
 			+ " and p.precio >= :precio "
 			+ " and p.cantidadEnStock >= :cantidadEnStock "
 			+ " and c.id like CONCAT ('%',:categoria,'%') ")
+	
+	List<ProductosDTO>buscarProductos(@Param("id") String id,
+			@Param("nombre") String nombre,
+			@Param("descripcion") String descripcion,
+			@Param("precio") String precio,
+			@Param("cantidadEnStock") String cantidadEnStock);
+	
 		
 	List<ProductosDTO>buscarProductosporIdyNombre(@Param("id") String id,
 			@Param("nombre") String nombre,

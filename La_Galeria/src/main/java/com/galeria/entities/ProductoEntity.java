@@ -50,6 +50,23 @@ public class ProductoEntity {
 		this.cantidadEnStock = cantidadEnStock;
 	}
 
+	public ProductoEntity(String nombre, String descripcion, Double precio, Integer cantidadEnStock) {
+		super();
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.cantidadEnStock = cantidadEnStock;
+	}
+
+	public ProductoEntity(String id, String nombre, String descripcion, Double precio, Integer cantidadEnStock) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.cantidadEnStock = cantidadEnStock;
+	}
+
 	public ProductoEntity(String id, String nombre, String descripcion, Double precio, Integer cantidadEnStock,
 			CategoriaEntity categoria, Set<DetallePedidoEntity> detallePedidos) {
 		super();
@@ -75,6 +92,18 @@ public class ProductoEntity {
 	public ProductoEntity(String id) {
 		super();
 		this.id = id;
+	}
+	
+
+	public ProductoEntity(String nombre, String descripcion, Double precio, Integer cantidadEnStock,
+			CategoriaEntity categoria, Set<DetallePedidoEntity> detallePedidos) {
+		super();
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.cantidadEnStock = cantidadEnStock;
+		this.categoria = categoria;
+		this.detallePedidos = detallePedidos;
 	}
 
 	public ProductoEntity(String id, String nombre, String descripcion, Double precio, Integer cantidadEnStock,

@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import com.galeria.dtos.PedidosDTO;
+import com.galeria.dtos.ProductosDTO;
 
 public interface IProductosDAO {
 
-	public List<PedidosDTO> buscarProductos(String id, String nombre, String descripcion, String precio, String cantidadEnStock)
+	public List<ProductosDTO> buscarProductos(String id, String nombre, String descripcion, String precio, String cantidadEnStock)
 			throws ClassNotFoundException, SQLException, NamingException;
 
 	public Integer insertarProductos(String nombre, String descripcion, String precio, String cantidadEnStock) throws ClassNotFoundException, SQLException, NamingException;
