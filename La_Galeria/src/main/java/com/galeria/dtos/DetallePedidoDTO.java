@@ -5,20 +5,20 @@ public class DetallePedidoDTO {
 	private String id;
 	private String idProducto;
 	private String idPedido;
-	private String cantidad;
-	private String stock;
+	private Integer cantidad;
+	private Double precio;
 
 	public DetallePedidoDTO() {
 		super();
 	}
 
-	public DetallePedidoDTO(String id, String idProducto, String idPedido, String cantidad, String stock) {
+	public DetallePedidoDTO(String id, String idProducto, String idPedido, Integer cantidad, Double precio) {
 		super();
 		this.id = id;
 		this.idProducto = idProducto;
 		this.idPedido = idPedido;
 		this.cantidad = cantidad;
-		this.stock = stock;
+		this.precio = precio;
 	}
 
 	public String getId() {
@@ -45,20 +45,20 @@ public class DetallePedidoDTO {
 		this.idPedido = idPedido;
 	}
 
-	public String getCantidad() {
+	public Integer getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(String cantidad) {
+	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
 
-	public String getStock() {
-		return stock;
+	public Double getPrecio() {
+		return precio;
 	}
 
-	public void setStock(String stock) {
-		this.stock = stock;
+	public void setPrecio(Double precio) {
+		this.precio = precio;
 	}
 
 }

@@ -9,11 +9,11 @@ import com.galeria.dtos.DetallePedidoDTO;
 
 public interface IDetallePedidosDAO {
 	
-	public List<DetallePedidoDTO> buscarDetallePedidos(String id, String idProducto, String idPedido, String cantidad, String stock)
+	public List<DetallePedidoDTO> buscarDetallePedidos(String id, String idProducto, String idPedido, String cantidad, String precio)
 			throws ClassNotFoundException, SQLException, NamingException;
 
-	public Integer insertarDetallePedidos(String idProducto, String idPedido, String cantidad, String stock) throws ClassNotFoundException, SQLException, NamingException;
+	public Integer insertarDetallePedidos(String idProducto, String idPedido, String cantidad, String precio) throws ClassNotFoundException, SQLException, NamingException;
 
-	public Integer actualizarDetallePedidos(String id, String idProducto, String idPedido, String cantidad, String stock) throws ClassNotFoundException, SQLException, NamingException;
+	public Integer actualizarDetallePedidos(String id, String idProducto, String idPedido, String cantidad, String precio) throws ClassNotFoundException, SQLException, NamingException;
 
 }
