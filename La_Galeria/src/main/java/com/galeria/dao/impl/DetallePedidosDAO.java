@@ -33,12 +33,12 @@ public class DetallePedidosDAO implements IDetallePedidosDAO{
 	public Integer insertarDetallePedidos(String idProducto, String idPedido, String cantidad, String precio)
 			throws ClassNotFoundException, SQLException, NamingException {
 
-		;
-		
-		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(idProducto, idPedido, Integer.parseInt(cantidad), Double.parseDouble(precio));
-		detallePedidoRepository.save(detallePedidoEntity);
-		
-		return Integer.parseInt(detallePedidoEntity.getId());
+	
+//		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(idProducto, idPedido, Integer.parseInt(cantidad), Double.parseDouble(precio));
+//		detallePedidoRepository.save(detallePedidoEntity);
+//		
+//		return Integer.parseInt(detallePedidoEntity.getId());
+		return null;
 	}
 
 	@Override
