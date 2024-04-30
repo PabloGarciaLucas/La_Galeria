@@ -38,8 +38,19 @@ public class DetallePedidoEntity {
 	public DetallePedidoEntity() {
 		super();
 	}
+	
+	
 
 	
+	public DetallePedidoEntity(Integer cantidad, Double precio) {
+		super();
+		this.cantidad = cantidad;
+		this.precio = precio;
+	}
+
+
+
+
 	public DetallePedidoEntity(ProductoEntity producto, Integer cantidad, Double precio) {
 		super();
 		this.producto = producto;

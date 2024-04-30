@@ -16,16 +16,15 @@ import com.galeria.repositories.DetallePedidoRepository;
 import com.galeria.repositories.ProductoRepository;
 
 @Component("DetallePedidosDAO")
-public class DetallePedidosDAO implements IDetallePedidosDAO{
-	
+public class DetallePedidosDAO implements IDetallePedidosDAO {
+
 	@Autowired
 	DetallePedidoRepository detallePedidoRepository;
-	
 
 	@Override
 	public List<DetallePedidoDTO> buscarDetallePedidos(String id, String idProducto, String idPedido, String cantidad,
 			String precio) throws ClassNotFoundException, SQLException, NamingException {
-		
+
 		return detallePedidoRepository.buscarDetallePedidos(id, idProducto, idPedido, cantidad, precio);
 	}
 
@@ -33,19 +32,24 @@ public class DetallePedidosDAO implements IDetallePedidosDAO{
 	public Integer insertarDetallePedidos(String idProducto, String idPedido, String cantidad, String precio)
 			throws ClassNotFoundException, SQLException, NamingException {
 
-	
-//		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(idProducto, idPedido, Integer.parseInt(cantidad), Double.parseDouble(precio));
-//		detallePedidoRepository.save(detallePedidoEntity);
-//		
-//		return Integer.parseInt(detallePedidoEntity.getId());
-		return null;
+		// Consulat idProducto y idPedido
+		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(Integer.parseInt(cantidad),
+				Double.parseDouble(precio));
+		detallePedidoRepository.save(detallePedidoEntity);
+
+		return Integer.parseInt(detallePedidoEntity.getId());
+
 	}
 
 	@Override
 	public Integer actualizarDetallePedidos(String id, String idProducto, String idPedido, String cantidad,
 			String precio) throws ClassNotFoundException, SQLException, NamingException {
-		// TODO Auto-generated method stub
-		return null;
+		// Consulat idProducto y idPedido
+		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(Integer.parseInt(cantidad),
+				Double.parseDouble(precio));
+		detallePedidoRepository.save(detallePedidoEntity);
+
+		return Integer.parseInt(detallePedidoEntity.getId());
 	}
 
 }

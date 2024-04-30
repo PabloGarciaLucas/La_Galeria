@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.galeria.dtos.PedidosDTO;
 import com.galeria.dtos.ProductosDTO;
 import com.galeria.entities.ProductoEntity;
 
