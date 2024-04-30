@@ -79,17 +79,26 @@ export default {
       fetch("http://localhost:8081/galeria/v1/imagenes/1", {
         mode: "cors"
       })
-      .then(response => response.json())
-      .then(data => {
-        this.imagenes = data;
-        this.imagenes.forEach(imagen => {
-          this.anadeImg(imagen);
-        });
+      .then(response => response.blob()) // Convertir la respuesta a un Blob
+      .then(blob => {
+        this.blobToBase64(blob); // Llamar a la función para convertir Blob a base64
+      })
+      .catch(error => {
+        console.error('Error al cargar la imagen:', error);
       });
+    },
+    blobToBase64(blob) {
+      const reader = new FileReader();
+      reader.readAsDataURL(blob); // Leer el blob como una cadena base64
+      reader.onloadend = () => {
+        const base64data = reader.result.split(',')[1]; // Obtener solo los datos base64
+        this.anadeImg(base64data); // Llamar a la función para agregar la imagen
+      };
     }
   },
   mounted() {
     this.traerImagen();
   }
 }
+
 </script>

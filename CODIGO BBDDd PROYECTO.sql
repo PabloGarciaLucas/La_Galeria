@@ -1,4 +1,3 @@
-
 CREATE DATABASE galeria;
 
 USE galeria;
