@@ -19,7 +19,7 @@ public class UsersService implements IUsersService {
 	IUsersDAO usuarioDAO;
 	
 	@Override
-	public List<UsersDTO> buscarUsuarios(Integer userID, String userName, String userPasswd, String userEmail, List<String> userRole)
+	public List<UsersDTO> buscarUsuarios(Integer userID, String userName, String userPasswd, String userEmail, String userRole)
 			throws ClassNotFoundException, SQLException, NamingException {
 
 		return usuarioDAO.buscarUsuarios(userID, userName, userPasswd, userEmail, userRole);
