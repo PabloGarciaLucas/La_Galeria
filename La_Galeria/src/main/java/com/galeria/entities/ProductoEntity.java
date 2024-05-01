@@ -23,7 +23,7 @@ public class ProductoEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_Producto")
-	private String id;
+	private Integer id;
 
 	@Column(name = "Nombre", nullable = false)
 	private String nombre;
@@ -58,7 +58,7 @@ public class ProductoEntity {
 		this.cantidadEnStock = cantidadEnStock;
 	}
 
-	public ProductoEntity(String id, String nombre, String descripcion, Double precio, Integer cantidadEnStock) {
+	public ProductoEntity(Integer id, String nombre, String descripcion, Double precio, Integer cantidadEnStock) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -67,7 +67,7 @@ public class ProductoEntity {
 		this.cantidadEnStock = cantidadEnStock;
 	}
 
-	public ProductoEntity(String id, String nombre, String descripcion, Double precio, Integer cantidadEnStock,
+	public ProductoEntity(Integer id, String nombre, String descripcion, Double precio, Integer cantidadEnStock,
 			CategoriaEntity categoria, Set<DetallePedidoEntity> detallePedidos) {
 		super();
 		this.id = id;
@@ -83,17 +83,11 @@ public class ProductoEntity {
 		super();
 	}
 
-	public ProductoEntity(String id, Integer cantidadEnStock) {
+	public ProductoEntity(Integer id, Integer cantidadEnStock) {
 		super();
 		this.id = id;
 		this.cantidadEnStock = cantidadEnStock;
 	}
-
-	public ProductoEntity(String id) {
-		super();
-		this.id = id;
-	}
-	
 
 	public ProductoEntity(String nombre, String descripcion, Double precio, Integer cantidadEnStock,
 			CategoriaEntity categoria, Set<DetallePedidoEntity> detallePedidos) {
@@ -106,7 +100,7 @@ public class ProductoEntity {
 		this.detallePedidos = detallePedidos;
 	}
 
-	public ProductoEntity(String id, String nombre, String descripcion, Double precio, Integer cantidadEnStock,
+	public ProductoEntity(Integer id, String nombre, String descripcion, Double precio, Integer cantidadEnStock,
 			CategoriaEntity categoria) {
 		super();
 		this.id = id;
@@ -127,11 +121,11 @@ public class ProductoEntity {
 		this.categoria = categoria;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

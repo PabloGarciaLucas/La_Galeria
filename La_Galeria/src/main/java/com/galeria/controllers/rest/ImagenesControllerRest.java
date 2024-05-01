@@ -47,7 +47,7 @@ public class ImagenesControllerRest {
 	}
 	
 	@GetMapping(value="/imagenes", params = {"idImagen", "descripcion", "imagen"})
-	public List<ImagenesDTO>buscarCategoriasConFiltros(@RequestParam(value = "idImagen", required =false) Integer idImagen,
+	public List<ImagenesDTO>buscarImagenesConFiltros(@RequestParam(value = "idImagen", required =false) Integer idImagen,
 			@RequestParam(value= "descripcion", required=false) String descripcion,
 			@RequestParam(value= "imagen", required=false) byte[] imagen){
 		List<ImagenesDTO> i = imagenRepository.buscarImagenes(idImagen, descripcion, imagen);

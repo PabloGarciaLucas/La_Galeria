@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.galeria.dao.IProductosDAO;
 import com.galeria.dtos.ProductosDTO;
+import com.galeria.entities.CategoriaEntity;
 import com.galeria.negocio.IProductosService;
 
 @Component
@@ -19,24 +20,24 @@ public class ProductosService implements IProductosService{
 	IProductosDAO productosDAO;
 
 	@Override
-	public List<ProductosDTO> buscarProductos(String id, String nombre, String descripcion, String precio,
-			String cantidadEnStock) throws ClassNotFoundException, SQLException, NamingException {
+	public List<ProductosDTO> buscarProductos(Integer id, String nombre, String descripcion, Double precio,
+			Integer cantidadEnStock, CategoriaEntity categoria) throws ClassNotFoundException, SQLException, NamingException {
 		// TODO Auto-generated method stub
-		return productosDAO.buscarProductos(id, nombre, descripcion, precio, cantidadEnStock);
+		return productosDAO.buscarProductos(id, nombre, descripcion, precio, cantidadEnStock, categoria);
 	}
 
 	@Override
-	public Integer insertarProductos(String nombre, String descripcion, String precio, String cantidadEnStock)
+	public Integer insertarProductos(String nombre, String descripcion, Double precio, Integer cantidadEnStock, CategoriaEntity categoria)
 			throws ClassNotFoundException, SQLException, NamingException {
 		// TODO Auto-generated method stub
-		return productosDAO.insertarProductos(nombre, descripcion, precio, cantidadEnStock);
+		return productosDAO.insertarProductos(nombre, descripcion, precio, cantidadEnStock, categoria);
 	}
 
 	@Override
-	public Integer actualizarProductos(String id, String nombre, String descripcion, String precio,
-			String cantidadEnStock) throws ClassNotFoundException, SQLException, NamingException {
+	public Integer actualizarProductos(Integer id, String nombre, String descripcion, Double precio,
+			Integer cantidadEnStock, CategoriaEntity categoria) throws ClassNotFoundException, SQLException, NamingException {
 		// TODO Auto-generated method stub
-		return productosDAO.actualizarProductos(id, nombre, descripcion, precio, cantidadEnStock);
+		return productosDAO.actualizarProductos(id, nombre, descripcion, precio, cantidadEnStock, categoria);
 	}
 
 }
