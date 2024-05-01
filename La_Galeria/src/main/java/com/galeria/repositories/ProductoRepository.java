@@ -5,13 +5,14 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.galeria.dtos.ProductosDTO;
 import com.galeria.entities.CategoriaEntity;
 import com.galeria.entities.ProductoEntity;
 
 
-
+@Repository
 public interface ProductoRepository extends CrudRepository<ProductoEntity, Integer>{
 
 	@Query(value = "select new com.galeria.dtos.ProductosDTO (p.id, p.nombre, p.descripcion, p.precio, p.cantidadEnStock, c.id, c.nombre, p.nombre) "

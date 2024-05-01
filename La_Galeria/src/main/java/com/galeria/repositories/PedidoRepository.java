@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.galeria.dtos.CategoriasDTO;
 import com.galeria.dtos.PedidosDTO;
@@ -12,7 +13,7 @@ import com.galeria.entities.PedidoEntity;
 import com.galeria.entities.User;
 
 
-
+@Repository
 public interface PedidoRepository extends CrudRepository<PedidoEntity, String>{
 	
 	@Query(value= "select new com.galeria.dtos.PedidosDTO (p.id, p.usuario, p.fechaPedido) "

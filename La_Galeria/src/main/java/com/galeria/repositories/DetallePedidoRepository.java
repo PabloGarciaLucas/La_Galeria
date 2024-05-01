@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.galeria.dtos.DetallePedidoDTO;
 import com.galeria.entities.DetallePedidoEntity;
 import com.galeria.entities.PedidoEntity;
 import com.galeria.entities.ProductoEntity;
 
+@Repository
 public interface DetallePedidoRepository extends CrudRepository<DetallePedidoEntity, String>{
 
 	@Query("select new com.galeria.dtos.DetallePedidoDTO (d.id, d.pedido, d.producto, d.cantidad, d.precio) " +
