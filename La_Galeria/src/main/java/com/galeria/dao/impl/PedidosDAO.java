@@ -12,6 +12,7 @@ import com.galeria.dao.IPedidosDAO;
 import com.galeria.dtos.PedidosDTO;
 import com.galeria.entities.CategoriaEntity;
 import com.galeria.entities.PedidoEntity;
+import com.galeria.entities.User;
 import com.galeria.repositories.CategoriasRepository;
 import com.galeria.repositories.PedidoRepository;
 
@@ -22,14 +23,14 @@ public class PedidosDAO implements IPedidosDAO{
 	PedidoRepository pedidoRepository;
 
 	@Override
-	public List<PedidosDTO> buscarPedidos(String id, String usuario, String fechapedido)
+	public List<PedidosDTO> buscarPedidos(String id, User usuario, String fechapedido)
 			throws ClassNotFoundException, SQLException, NamingException {
 		
 		return pedidoRepository.buscarPedidos(id, usuario, fechapedido);
 	}
 
 	@Override
-	public Integer insertarPedidos(String usuario, String fechapedido)
+	public Integer insertarPedidos(User usuario, String fechapedido)
 			throws ClassNotFoundException, SQLException, NamingException {
 		
 		PedidoEntity pedidoEntity = new PedidoEntity(usuario, fechapedido);
@@ -39,7 +40,7 @@ public class PedidosDAO implements IPedidosDAO{
 	}
 
 	@Override
-	public Integer actualizarPedidos(String id, String usuario, String fechapedido)
+	public Integer actualizarPedidos(String id, User usuario, String fechapedido)
 			throws ClassNotFoundException, SQLException, NamingException {
 		
 		//Mirar en la entidad de pedido el User

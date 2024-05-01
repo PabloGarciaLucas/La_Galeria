@@ -1,16 +1,18 @@
 package com.galeria.dtos;
 
+import com.galeria.entities.User;
+
 public class PedidosDTO {
 
 	private String id;
-	private String usuario;
+	private User usuario;
 	private String fechaPedido;
 	
 	public PedidosDTO() {
 		super();
 	}
 
-	public PedidosDTO(String id, String usuario, String fechaPedido) {
+	public PedidosDTO(String id, User usuario, String fechaPedido) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -25,11 +27,11 @@ public class PedidosDTO {
 		this.id = id;
 	}
 
-	public String getUsuario() {
+	public User getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	public void setUsuario(User usuario) {
 		this.usuario = usuario;
 	}
 
@@ -40,7 +42,7 @@ public class PedidosDTO {
 	public void setFechaPedido(String fechaPedido) {
 		this.fechaPedido = fechaPedido;
 	}
-	
+
 	
 
 }

@@ -38,10 +38,16 @@ public class DetallePedidoEntity {
 	public DetallePedidoEntity() {
 		super();
 	}
-	
-	
 
 	
+	public DetallePedidoEntity(PedidoEntity pedido, ProductoEntity producto, Integer cantidad, Double precio) {
+		super();
+		this.pedido = pedido;
+		this.producto = producto;
+		this.cantidad = cantidad;
+		this.precio = precio;
+	}
+
 	public DetallePedidoEntity(Integer cantidad, Double precio) {
 		super();
 		this.cantidad = cantidad;
@@ -53,16 +59,6 @@ public class DetallePedidoEntity {
 
 	public DetallePedidoEntity(ProductoEntity producto, Integer cantidad, Double precio) {
 		super();
-		this.producto = producto;
-		this.cantidad = cantidad;
-		this.precio = precio;
-	}
-
-
-
-	public DetallePedidoEntity(PedidoEntity pedido, ProductoEntity producto, Integer cantidad, Double precio) {
-		super();
-		this.pedido = pedido;
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.precio = precio;

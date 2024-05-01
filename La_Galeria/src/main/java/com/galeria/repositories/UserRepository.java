@@ -19,7 +19,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 			+ " AND u.userName like CONCAT ('%',:userName,'%') "
 			+ " AND u.userPasswd like CONCAT ('%',:userPasswd,'%') "
 			+ " AND u.userEmail like CONCAT ('%',:userEmail,'%') "
-			+ " AND u.user_role like CONCAT ('%',:user_role,'%')")
+			+ " AND u.user_role = :user_role")
 	List<UsersDTO>buscarUsuarios(@Param("userID") Integer userID,
 			@Param("userName") String userName,
 			@Param("userPasswd") String userPasswd,

@@ -41,6 +41,12 @@ public class PedidoEntity {
 		this.usuario = usuario;
 	}
 
+	public PedidoEntity(User usuario, String fechaPedido) {
+		super();
+		this.usuario = usuario;
+		this.fechaPedido = fechaPedido;
+	}
+
 	public PedidoEntity(String id) {
 		super();
 		this.id = id;

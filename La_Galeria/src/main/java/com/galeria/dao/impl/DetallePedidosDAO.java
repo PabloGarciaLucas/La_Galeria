@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.galeria.dao.IDetallePedidosDAO;
 import com.galeria.dtos.DetallePedidoDTO;
 import com.galeria.entities.DetallePedidoEntity;
+import com.galeria.entities.PedidoEntity;
 import com.galeria.entities.ProductoEntity;
 import com.galeria.repositories.DetallePedidoRepository;
 import com.galeria.repositories.ProductoRepository;
@@ -22,19 +23,18 @@ public class DetallePedidosDAO implements IDetallePedidosDAO {
 	DetallePedidoRepository detallePedidoRepository;
 
 	@Override
-	public List<DetallePedidoDTO> buscarDetallePedidos(String id, String idProducto, String idPedido, String cantidad,
-			String precio) throws ClassNotFoundException, SQLException, NamingException {
+	public List<DetallePedidoDTO> buscarDetallePedidos(String id, ProductoEntity idProducto, PedidoEntity idPedido, Integer cantidad,
+			Double precio) throws ClassNotFoundException, SQLException, NamingException {
 
 		return detallePedidoRepository.buscarDetallePedidos(id, idProducto, idPedido, cantidad, precio);
 	}
 
 	@Override
-	public Integer insertarDetallePedidos(String idProducto, String idPedido, String cantidad, String precio)
+	public Integer insertarDetallePedidos(ProductoEntity idProducto, PedidoEntity idPedido, Integer cantidad, Double precio)
 			throws ClassNotFoundException, SQLException, NamingException {
 
 		// Consulat idProducto y idPedido
-		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(Integer.parseInt(cantidad),
-				Double.parseDouble(precio));
+		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(idPedido, idProducto, cantidad, precio);
 		detallePedidoRepository.save(detallePedidoEntity);
 
 		return Integer.parseInt(detallePedidoEntity.getId());
@@ -42,11 +42,10 @@ public class DetallePedidosDAO implements IDetallePedidosDAO {
 	}
 
 	@Override
-	public Integer actualizarDetallePedidos(String id, String idProducto, String idPedido, String cantidad,
-			String precio) throws ClassNotFoundException, SQLException, NamingException {
+	public Integer actualizarDetallePedidos(String id, ProductoEntity idProducto, PedidoEntity idPedido, Integer cantidad,
+			Double precio) throws ClassNotFoundException, SQLException, NamingException {
 		// Consulat idProducto y idPedido
-		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(Integer.parseInt(cantidad),
-				Double.parseDouble(precio));
+		DetallePedidoEntity detallePedidoEntity = new DetallePedidoEntity(idPedido, idProducto, cantidad, precio);
 		detallePedidoRepository.save(detallePedidoEntity);
 
 		return Integer.parseInt(detallePedidoEntity.getId());

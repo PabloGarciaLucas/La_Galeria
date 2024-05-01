@@ -1,10 +1,15 @@
 package com.galeria.dtos;
 
+import java.util.List;
+
+import com.galeria.entities.PedidoEntity;
+import com.galeria.entities.ProductoEntity;
+
 public class DetallePedidoDTO {
 
 	private String id;
-	private String idProducto;
-	private String idPedido;
+	private ProductoEntity idProducto;
+	private PedidoEntity idPedido;
 	private Integer cantidad;
 	private Double precio;
 
@@ -12,7 +17,8 @@ public class DetallePedidoDTO {
 		super();
 	}
 
-	public DetallePedidoDTO(String id, String idProducto, String idPedido, Integer cantidad, Double precio) {
+	public DetallePedidoDTO(String id, ProductoEntity idProducto, PedidoEntity idPedido, Integer cantidad,
+			Double precio) {
 		super();
 		this.id = id;
 		this.idProducto = idProducto;
@@ -29,19 +35,19 @@ public class DetallePedidoDTO {
 		this.id = id;
 	}
 
-	public String getIdProducto() {
+	public ProductoEntity getIdProducto() {
 		return idProducto;
 	}
 
-	public void setIdProducto(String idProducto) {
+	public void setIdProducto(ProductoEntity idProducto) {
 		this.idProducto = idProducto;
 	}
 
-	public String getIdPedido() {
+	public PedidoEntity getIdPedido() {
 		return idPedido;
 	}
 
-	public void setIdPedido(String idPedido) {
+	public void setIdPedido(PedidoEntity idPedido) {
 		this.idPedido = idPedido;
 	}
 
@@ -60,5 +66,7 @@ public class DetallePedidoDTO {
 	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
+
+	
 
 }
