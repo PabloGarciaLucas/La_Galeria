@@ -1,5 +1,7 @@
 package com.galeria.dtos;
 
+import com.galeria.entities.CategoriaEntity;
+
 public class ProductosDTO {
 
 	private Integer id;
@@ -7,6 +9,7 @@ public class ProductosDTO {
 	private String descripcion;
 	private Double precio;
 	private Integer cantidadEnStock;
+	private CategoriaEntity categoria;
 
 	public ProductosDTO() {
 		super();
@@ -19,6 +22,17 @@ public class ProductosDTO {
 		this.descripcion = descripcion;
 		this.precio = precio;
 		this.cantidadEnStock = cantidadEnStock;
+	}
+
+	public ProductosDTO(Integer id, String nombre, String descripcion, Double precio, Integer cantidadEnStock,
+			CategoriaEntity categoria) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.cantidadEnStock = cantidadEnStock;
+		this.categoria = categoria;
 	}
 
 	public Integer getId() {
@@ -53,12 +67,21 @@ public class ProductosDTO {
 		this.precio = precio;
 	}
 
-	public Integer getcantidadEnStockk() {
+	public Integer getCantidadEnStock() {
 		return cantidadEnStock;
 	}
 
-	public void setcantidadEnStock(Integer cantidadStock) {
-		this.cantidadEnStock = cantidadStock;
+	public void setCantidadEnStock(Integer cantidadEnStock) {
+		this.cantidadEnStock = cantidadEnStock;
 	}
 
+	public CategoriaEntity getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaEntity categoria) {
+		this.categoria = categoria;
+	}
+
+	
 }
