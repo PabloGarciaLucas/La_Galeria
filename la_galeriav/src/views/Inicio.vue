@@ -9,10 +9,10 @@
               <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
               <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
             </ol>
-  
+           
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="https://vie.placeholder.com/800x400?text=Imagen+1" class="d-block w-100">
+              <div class="carousel-item active" @load="traerImagen()" id="container">
+               
               </div>
               <div class="carousel-item">
                 <img src="https://vie.placeholder.com/800x400?text=Imagen+2" class="d-block w-100">
@@ -20,6 +20,10 @@
               <div class="carousel-item">
                 <img src="https://vie.placeholder.com/800x400?text=Imagen+3" class="d-block w-100">
               </div>
+            </div>
+
+            <div id="container">
+
             </div>
   
             <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
@@ -110,6 +114,29 @@
   <script>
   export default {
     name: 'Inicio',
+  data() {
+    return {
+      imagenes: []
+    }
+  },
+  methods: {
+    traerImagen() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/2", {
+      })
+      .then(response => response.json()) 
+      .then(data => this.anadeImg(data.imagen)); 
+      
+    },
+    anadeImg(base64) {
+      var img = document.createElement('img');
+      img.src = 'data:image/jpeg;base64,'+base64;
+      document.getElementById('container').appendChild(img);
+      },
+    },
+  mounted() {
+    this.traerImagen();
   }
+}
+  
   </script>
   
