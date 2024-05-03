@@ -1,10 +1,13 @@
 <template>
     <div id="coctelContainer">
-        <div v-for="(coctel, index) in cocteles" :key="index" class="caja">
-            <img src="coctel.strDrinkThumb" alt="coctel.strDrink" class="coctelImage">
-        </div>
-        <button @click="generarFactura">Solicitar Pedido</button>
+        <div @load="traerImagen()" id="container" class="cocteleriaImagen1"> </div>
+
+        <div @load="traerImagen()" id="container" class="cocteleriaImagen2"> </div>
+
+        <div @load="traerImagen()" id="container" class="cocteleriaImagen3"> </div>
     </div>
+
+    <button @click="generarFactura">Solicitar Pedido</button>
 </template>
 
 <style scoped>

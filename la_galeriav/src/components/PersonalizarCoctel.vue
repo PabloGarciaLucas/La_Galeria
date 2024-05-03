@@ -1,18 +1,23 @@
 <template>
     <div id="cristaleriaContainer">
-        <div v-for="(cristaleria, index) in cristalerias" :key="index" class="caja">
-            <img src="cristaleria.strDrinkThumb" alt="cristaleria.strDrink" class="cristaleriaImage">
-        </div>
+        <div @load="traerImagen()" id="container" class="cristaleriaImagen1"> </div>
+
+        <div @load="traerImagen()" id="container" class="cristaleriaImagen2"> </div>
+
+        <div @load="traerImagen()" id="container" class="cristaleriaImagen3"> </div>
     </div>
 
     <hr>
 
     <div id="coctelContainer">
-        <div v-for="(coctel, index) in cocteles" :key="index" class="caja">
-            <img src="coctel.strDrinkThumb" alt="coctel.strDrink" class="coctelImage">
-        </div>
-        <button @click="generarFactura">Solicitar Pedido</button>
+        <div @load="traerImagen()" id="container" class="cocteleriaImagen1"> </div>
+
+        <div @load="traerImagen()" id="container" class="cocteleriaImagen2"> </div>
+
+        <div @load="traerImagen()" id="container" class="cocteleriaImagen3"> </div>
     </div>
+
+    <button @click="generarFactura">Solicitar Pedido</button>
 </template>
 
 <style scoped>
