@@ -70,32 +70,24 @@ export default {
     }
   },
   methods: {
-    anadeImg(base64) {
-      var img = document.createElement('img');
-      img.src = 'data:image/jpeg;base64,'+base64;
-      document.getElementById('container').appendChild(img);
-    },
+  
     traerImagen() {
-      fetch("http://localhost:8081/galeria/v1/imagenes/1", {
+      fetch("http://localhost:8080/galeria/v1/imagenes/1", {
         mode: "cors"
       })
-      .then(response => response.blob()) // Convertir la respuesta a un Blob
-      .then(blob => {
-        this.blobToBase64(blob); // Llamar a la función para convertir Blob a base64
+      .then(response => response.json()) 
+      .then(data => { this.blobToBase64(blob); 
       })
       .catch(error => {
         console.error('Error al cargar la imagen:', error);
       });
     },
-    blobToBase64(blob) {
-      const reader = new FileReader();
-      reader.readAsDataURL(blob); // Leer el blob como una cadena base64
-      reader.onloadend = () => {
-        const base64data = reader.result.split(',')[1]; // Obtener solo los datos base64
-        this.anadeImg(base64data); // Llamar a la función para agregar la imagen
-      };
-    }
-  },
+    anadeImg(base64) {
+      var img = document.createElement('img');
+      img.src = 'data:image/jpeg;base64,'+base64;
+      document.getElementById('container').appendChild(img);
+      }
+    },
   mounted() {
     this.traerImagen();
   }
