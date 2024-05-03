@@ -1,105 +1,102 @@
 <template>
-    <div id="cristaleriaContainer">
-        <div @load="traerImagen()" id="container" class="cristaleriaImagen1"> </div>
-
-        <div @load="traerImagen()" id="container" class="cristaleriaImagen2"> </div>
-
-        <div @load="traerImagen()" id="container" class="cristaleriaImagen3"> </div>
+  <div id="cristaleriaContainer">
+    <!-- Añadido v-for para iterar sobre la cristalería y @click para seleccionar un artículo -->
+    <div v-for="(articulo, index) in cristalerias" :key="'cristaleria-' + index" @click="seleccionarCristaleria(articulo)" class="caja">
+      <img :src="articulo.strDrinkThumb" class="cristaleriaImage" />
+      <p>{{ articulo.strCategory }}</p>
     </div>
+  </div>
 
-    <hr>
+  <hr>
 
-    <div id="coctelContainer">
-        <div @load="traerImagen()" id="container" class="cocteleriaImagen1"> </div>
-
-        <div @load="traerImagen()" id="container" class="cocteleriaImagen2"> </div>
-
-        <div @load="traerImagen()" id="container" class="cocteleriaImagen3"> </div>
+  <div id="coctelContainer">
+    <!-- Añadido v-for para iterar sobre los cócteles y @click para seleccionar un cóctel -->
+    <div v-for="(coctel, index) in cocteles" :key="'coctel-' + index" @click="seleccionarCoctel(coctel)" class="caja">
+      <img :src="coctel.strDrinkThumb" class="coctelImage" />
+      <p>{{ coctel.strDrink }}</p>
     </div>
+  </div>
 
-    <button @click="generarFactura">Solicitar Pedido</button>
+  <button @click="generarFactura">Solicitar Pedido</button>
 </template>
 
 <style scoped>
-    #cristaleriaContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #F0F0F0;
-    }
+/* Estilos actualizados para cristalería y cócteles */
+#coctelContainer, #cristaleriaContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F0F0F0;
+}
 
-    .caja {
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 20px;
-        max-width: 400px;
-        margin: 0 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+.caja {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer; /* Estilo para indicar que es seleccionable */
+}
 
-    .cristaleriaImage {
-        max-width: 100px;
-    }
-
-    #coctelContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #F0F0F0;
-    }
-
-    .caja {
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 20px;
-        max-width: 400px;
-        margin: 0 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .coctelImage {
-        max-width: 100px;
-    }
+.cristaleriaImage, .coctelImage {
+  max-width: 100px;
+}
 </style>
 
 <script>
-//import { jsPDF} from 'jspdf'
+import { jsPDF } from 'jspdf';
 
 export default {
-    data() {
-        return {
-            cocteles: []
-        }
+  data() {
+    return {
+      cristalerias: [], // Añadido para almacenar la cristalería
+      cocteles: [],
+      cristaleriaSeleccionada: null, // Añadido para almacenar la cristalería seleccionada
+      coctelSeleccionado: null // Añadido para almacenar el cóctel seleccionado
+    }
+  },
+  mounted() {
+    this.fetchCristalerias(); // Añadido para obtener la cristalería
+    this.fetchCocteles();
+  },
+  methods: {
+    async fetchCristalerias() {
+      try {
+        const response = await fetch('http://localhost:8080/galeria/v1/categorias');
+        const data = await response.json();
+        this.cristalerias = data.categories;
+      } catch (error) {
+        console.error("Se ha producido un error: " + error);
+      }
     },
-    mounted() {
-        this.fetchCocteles(); //Realizar peticion REST
+    async fetchCocteles() {
+      try {
+        const response = await fetch('http://localhost:8080/galeria/v1/productos');
+        const data = await response.json();
+        this.cocteles = data.drinks;
+      } catch (error) {
+        console.error("Se ha producido un error: " + error);
+      }
     },
-    methods: {
-        async fetchCocteles() {
-            try {
-                //const respuesta = await fetch(http://localhost:8080/galeria/v1/productos);
-                const data = await response.json();
-                this.respuesta = data.drinks;
-            } catch (error) {
-                console.error("Se ha producido un error: " + error);
-            }
-        },
-        async generarFactura() {
-            const cristaleriaSeleccionada = this.cristalerias[0];
-            const coctelSeleccionado = this.cocteles[0];
-
-            const doc = new jsPDF();
-            doc.text("Cristalería Solicitada: $(cristaleriaSeleccionada.strDrink)", 20, 20);
-            doc.text("Cóctel Solicitado: $(coctelSeleccionado.strDrink)", 20, 20);
-
-            doc.save(factura.pdf);
-        }
+    seleccionarCristaleria(articulo) {
+      this.cristaleriaSeleccionada = articulo; // Almacena el artículo de cristalería seleccionado
     },
+    seleccionarCoctel(coctel) {
+      this.coctelSeleccionado = coctel; // Almacena el cóctel seleccionado
+    },
+    async generarFactura() {
+      if (this.cristaleriaSeleccionada && this.coctelSeleccionado) {
+        const doc = new jsPDF();
+        doc.text(`Cristalería Solicitada: ${this.cristaleriaSeleccionada.strCategory}`, 20, 30);
+        doc.text(`Cóctel Solicitado: ${this.coctelSeleccionado.strDrink}`, 20, 40);
+        doc.save('factura.pdf');
+      } else {
+        alert('Por favor, selecciona un artículo de cristalería y un cóctel antes de generar la factura.');
+      }
+    }
+  },
 }
 </script>
