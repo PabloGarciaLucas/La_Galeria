@@ -5,22 +5,13 @@
       <nav>
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
           <ol class="carousel-indicators">
-            <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
-            <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
+            <li v-for="(imagen, index) in imagenes" :data-bs-target="'#carouselExample'" :data-bs-slide-to="index" :class="{ active: index === 0 }"></li>
           </ol>
-        
           <div class="carousel-inner">
-            <div class="carousel-item active" @load="traerImagen()">
-            </div>
-            <div class="carousel-item">
-              <img src="https://vie.placeholder.com/800x400?text=Imagen+2" class="d-block w-100">
-            </div>
-            <div class="carousel-item">
-              <img src="https://vie.placeholder.com/800x400?text=Imagen+3" class="d-block w-100">
+            <div v-for="(imagen, index) in imagenes" :class="{ 'carousel-item': true, active: index === 0 }">
+              <img :src="imagen" class="d-block w-100">
             </div>
           </div>
-  
           <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Anterior</span>
@@ -32,7 +23,6 @@
         </div>
       </nav>
     </header>
-
     <main>
       <section class="contenido row">
         <div class="col-md-6">
@@ -47,7 +37,6 @@
         </div>
       </section>
     </main>
-
     <footer class="text-center mt-5">
       <div class="iconos">
         <a href="#"><i class="fab fa-facebook"></i></a>
@@ -59,6 +48,9 @@
 </template>
 
 <script>
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 export default {
   name: 'Inicio',
   data() {
@@ -67,19 +59,24 @@ export default {
     }
   },
   methods: {
-    traerImagen() {
-      fetch("http://localhost:8080/galeria/v1/imagenes/2", {})
+    traerImagenes() {
+      fetch("http://localhost:8080/galeria/v1/imagenes", {})
         .then(response => response.json()) 
-        .then(data => this.anadeImg(data.imagen)); 
-    },
-    anadeImg(base64) {
-      var img = document.createElement('img');
-      img.src = 'data:image/jpeg;base64,'+base64;
-      document.querySelector('.carousel-item.active').appendChild(img);
-    },
+        .then(data => {
+          this.imagenes = data.map(imagen => 'data:image/jpeg;base64,' + imagen.base64);
+          this.$nextTick(() => {
+            var myCarousel = document.querySelector('#carouselExample');
+            var carousel = new bootstrap.Carousel(myCarousel, {
+              interval: 2000,
+              wrap: true
+            });
+          });
+        })
+        .catch(error => console.error('Error al traer imágenes:', error));
+    }
   },
   mounted() {
-    this.traerImagen();
+    this.traerImagenes();
   }
 }
 </script>
@@ -130,3 +127,4 @@ export default {
     color: #555;
   }
 </style>
+
