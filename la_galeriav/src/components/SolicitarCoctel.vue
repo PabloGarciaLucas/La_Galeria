@@ -1,10 +1,19 @@
 <template>
   <div id="coctelContainer">
-    <!-- Añadido v-for para iterar sobre los cócteles y @click para seleccionar un cóctel -->
-    <div v-for="(coctel, index) in cocteles" :key="index" @click="seleccionarCoctel(coctel)" class="caja">
-      <img :src="coctel.strDrinkThumb" class="coctelImage" />
-      <p>{{ coctel.strDrink }}</p>
+    <div class="container container-A" @click="seleccionarCoctelYGenerarFactura('Jägermeister Mojito', 7.50)">
+      <!-- La imagen se añadirá aquí -->
     </div>
+    <span class="nombre">Jägermeister Mojito</span>
+
+    <div class="container container-B" @click="seleccionarCoctelYGenerarFactura('Sweet Star Martini', 8.00)">
+      <!-- La imagen se añadirá aquí -->
+    </div>
+    <span class="nombre">Sweet Star Martini</span>
+
+    <div class="container container-C" @click="seleccionarCoctelYGenerarFactura('Cerveza Rubia Belga Fuerte', 6.00)">
+      <!-- La imagen se añadirá aquí -->
+    </div>
+    <span class="nombre">Cerveza Rubia Belga Fuerte</span>
   </div>
 
   <button @click="generarFactura">Solicitar Pedido</button>
@@ -47,9 +56,6 @@ export default {
       coctelSeleccionado: null // Añadido para almacenar el cóctel seleccionado
     }
   },
-  mounted() {
-    this.fetchCocteles();
-  },
   methods: {
     async fetchCocteles() {
       try {
@@ -60,18 +66,55 @@ export default {
         console.error("Se ha producido un error: " + error);
       }
     },
-    seleccionarCoctel(coctel) {
-      this.coctelSeleccionado = coctel; // Almacena el cóctel seleccionado
+    seleccionarCoctelYGenerarFactura(nombreCoctel, precio) {
+      this.coctelSeleccionado = { nombre: nombreCoctel, precio: precio };
+      this.generarFactura();
     },
-    async generarFactura() {
-      if (this.coctelSeleccionado) {
+    generarFactura() {
+      if (this.coctelSeleccionado && this.coctelSeleccionado.nombre) {
         const doc = new jsPDF();
-        doc.text(`Cóctel Solicitado: ${this.coctelSeleccionado.strDrink}`, 20, 20);
+        doc.text(`Cóctel Solicitado: ${this.coctelSeleccionado.nombre}`, 20, 20);
+        doc.text(`Precio: ${this.coctelSeleccionado.precio.toFixed(2)}€`, 20, 30);
         doc.save('factura.pdf');
       } else {
         alert('Por favor, selecciona un cóctel antes de generar la factura.');
       }
-    }
+    },
+    traerImagenA() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/4", {
+      })
+      .then(response => response.json()) 
+      .then(data => this.anadeImg(data.imagen, 'A')); // Se ha añadido un segundo parámetro para diferenciar las imágenes
+      
+    },
+    traerImagenB() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/5", {
+      })
+      .then(response => response.json()) 
+      .then(data => this.anadeImg(data.imagen, 'B')); // Se ha añadido un segundo parámetro para diferenciar las imágenes
+      
+    },
+    traerImagenC() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/6", {
+      })
+      .then(response => response.json()) 
+      .then(data => this.anadeImg(data.imagen, 'C')); // Se ha añadido un segundo parámetro para diferenciar las imágenes
+      
+    },
+    anadeImg(base64, tipo) {
+      var img = document.createElement('img');
+      img.src = 'data:image/jpeg;base64,' + base64;
+      img.classList.add('coctelImage');
+      var container = document.querySelector(`.container-${tipo}`);
+      container.innerHTML = ''; // Limpia el contenedor antes de añadir la nueva imagen
+      container.appendChild(img);
+    },
   },
+  mounted() {
+    this.traerImagenA();
+    this.traerImagenB();
+    this.traerImagenC();
+  }
 }
 </script>
+

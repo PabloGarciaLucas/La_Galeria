@@ -4,12 +4,18 @@
             <router-link to="/solicitarCoctel" class="enlace">
                 <img src="solicitarCoctel.png"  class="imagenes">
                 <span class="titulo">Solicitar Cóctel</span>
+                <div @load="traerImagenA()" id="container">
+        
+                </div>
             </router-link>
         </div>
         <div class="caja">
             <router-link to="/personalizarCoctel" class="enlace">
                 <img src="personalizarCoctel.png"  class="imagenes">
                 <span class="titulo">Personalizar Cóctel</span>
+                <div @load="traerImagenB()" id="container">
+        
+                </div>
             </router-link>
         </div>
     </div>
@@ -55,3 +61,40 @@
     color: blue; /* Cambiar color del texto al pasar el ratón */
 }
 </style>
+
+<script>
+export default {
+  name: 'solicitarProducto',
+  data() {
+    return {
+      imagenes: []
+    }
+  },
+  methods: {
+    traerImagenA() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/2", {
+      })
+      .then(response => response.json()) 
+      .then(data => this.anadeImg(data.imagen)); 
+      
+    },
+    traerImagenB() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/3", {
+      })
+      .then(response => response.json()) 
+      .then(data => this.anadeImg(data.imagen)); 
+      
+    },
+    anadeImg(base64) {
+      var img = document.createElement('img');
+      img.src = 'data:image/jpeg;base64,'+base64;
+      document.getElementById('container').appendChild(img);
+      },
+    },
+  mounted() {
+    this.traerImagenA();
+    this.traerImagenB();
+  }
+}
+
+</script>

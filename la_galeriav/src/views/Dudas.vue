@@ -7,17 +7,18 @@
         
         </div>
       </div>
+      
       <div class="caja">
         <h2 class="tituloPregunta">¿Hasta dónde llegan nuestros servicios?</h2>
         <p class="respuesta">Nuestros servicios por ahora solo abarcan toda Salamanca, pero pretendemos extender este servicio a nivel nacional.</p>
-        <div @load="traerImagen()" id="container">
+        <div @load="traerImagen2()" id="container">
         
         </div>
       </div>
       <div class="caja">
         <h2 class="tituloPregunta">¿Hasta qué horario está abierta la entrega de cócteles los fines de semana?</h2>
         <p class="respuesta">Al ser un servicio pensado para previas, el horario de servicio es de 22:30 hasta las 4:30 de viernes a domingo.</p>
-        <div @load="traerImagen()" id="container">
+        <div @load="traerImagen3()" id="container">
         
         </div>
       </div>
@@ -83,6 +84,20 @@ export default {
       .then(data => this.anadeImg(data.imagen)); 
       
     },
+    traerImagen2() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/1", {
+      })
+      .then(response => response.json()) 
+      .then(data => this.anadeImg(data.imagen)); 
+      
+    },
+    traerImagen3() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/1", {
+      })
+      .then(response => response.json()) 
+      .then(data => this.anadeImg(data.imagen)); 
+      
+    },
     anadeImg(base64) {
       var img = document.createElement('img');
       img.src = 'data:image/jpeg;base64,'+base64;
@@ -91,6 +106,8 @@ export default {
     },
   mounted() {
     this.traerImagen();
+    this.traerImagen2();
+    this.traerImagen3();
   }
 }
 
