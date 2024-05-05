@@ -15,8 +15,6 @@
     </div>
     <span class="nombre">Cerveza Rubia Belga Fuerte</span>
   </div>
-
-  <button @click="generarFactura">Solicitar Pedido</button>
 </template>
 
 <style scoped>
