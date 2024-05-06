@@ -1,41 +1,28 @@
 <template>
-  <div id="vasoContainer">
-    <div class="container container-VasoA" @click="seleccionarVasoYGenerarFactura('Vaso con Ondas', 2.50)">
-      <!-- La imagen del vaso se añadirá aquí -->
-    </div>
-    <span class="nombre">Vaso con Ondas</span>
-    <div class="container container-VasoB" @click="seleccionarVasoYGenerarFactura('Vaso Mini', 3.50)">
-      <!-- La imagen del vaso se añadirá aquí -->
-    </div>
-    <span class="nombre">Vaso Mini</span>
-    <div class="container container-VasoC" @click="seleccionarVasoYGenerarFactura('Vaso Redondeado', 5.50)">
-      <!-- La imagen del vaso se añadirá aquí -->
-    </div>
-    <span class="nombre">Vaso Redondeado</span>
-    <!-- Asegúrate de que los contenedores para D, E y F existan -->
-    <div class="container container-VasoD"></div>
-    <div class="container container-VasoE"></div>
-    <div class="container container-VasoF"></div>
+  <div id="coctelContainer">
+    <div class="container container-VasoD" @click="seleccionarCoctelYGenerarFactura('Jägermeister Mojito', 7.50)"></div>
+    <span class="nombre">Jägermeister Mojito</span>
+
+    <div class="container container-VasoE" @click="seleccionarCoctelYGenerarFactura('Sweet Star Martini', 8.00)"></div>
+    <span class="nombre">Sweet Star Martini</span>
+
+    <div class="container container-VasoF" @click="seleccionarCoctelYGenerarFactura('Cerveza Rubia Belga Fuerte', 6.00)"></div>
+    <span class="nombre">Cerveza Rubia Belga Fuerte</span>
   </div>
 
   <hr>
 
-  <div id="coctelContainer">
-    <div class="container container-A" @click="seleccionarCoctelYGenerarFactura('Jägermeister Mojito', 7.50)">
-      <!-- La imagen del cóctel se añadirá aquí -->
-    </div>
-    <span class="nombre">Jägermeister Mojito</span>
+  <div id="vasoContainer">
+    <div class="container container-VasoA" @click="seleccionarVasoYGenerarFactura('Vaso con Ondas', 2.50)"></div>
+    <span class="nombre">Vaso con Ondas</span>
 
-    <div class="container container-B" @click="seleccionarCoctelYGenerarFactura('Sweet Star Martini', 8.00)">
-      <!-- La imagen del cóctel se añadirá aquí -->
-    </div>
-    <span class="nombre">Sweet Star Martini</span>
+    <div class="container container-VasoB" @click="seleccionarVasoYGenerarFactura('Vaso Mini', 3.50)"></div>
+    <span class="nombre">Vaso Mini</span>
 
-    <div class="container container-C" @click="seleccionarCoctelYGenerarFactura('Cerveza Rubia Belga Fuerte', 6.00)">
-      <!-- La imagen del cóctel se añadirá aquí -->
-    </div>
-    <span class="nombre">Cerveza Rubia Belga Fuerte</span>
+    <div class="container container-VasoC" @click="seleccionarVasoYGenerarFactura('Vaso Redondeado', 5.50)"></div>
+    <span class="nombre">Vaso Redondeado</span>
   </div>
+
 </template>
 
 <style scoped>
