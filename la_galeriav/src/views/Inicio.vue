@@ -9,7 +9,7 @@
           </ol>
           <div class="carousel-inner">
             <div v-for="(imagen, index) in imagenes" :class="{ 'carousel-item': true, active: index === 0 }">
-              <img :src="imagen" class="d-block w-100">
+              <img :src="imagen" class="d-block w-100" alt="Imagen de la galería">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
@@ -49,7 +49,7 @@
 
 <script>
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { Carousel } from 'bootstrap';
 
 export default {
   name: 'Inicio',
@@ -58,25 +58,25 @@ export default {
       imagenes: []
     }
   },
+  mounted() {
+    this.traerImagenes();
+  },
   methods: {
     traerImagenes() {
       fetch("http://localhost:8080/galeria/v1/imagenes", {})
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(data => {
           this.imagenes = data.map(imagen => 'data:image/jpeg;base64,' + imagen.base64);
           this.$nextTick(() => {
             var myCarousel = document.querySelector('#carouselExample');
-            var carousel = new bootstrap.Carousel(myCarousel, {
-              interval: 2000,
+            var carousel = new Carousel(myCarousel, {
+              interval: 2000, // Aquí ajustamos el intervalo a 2 segundos
               wrap: true
             });
           });
         })
         .catch(error => console.error('Error al traer imágenes:', error));
     }
-  },
-  mounted() {
-    this.traerImagenes();
   }
 }
 </script>
@@ -126,5 +126,9 @@ export default {
   .iconos a:hover {
     color: #555;
   }
-</style>
 
+  .carousel-item img {
+    width: 100%;
+    height: auto;
+  }
+</style>
