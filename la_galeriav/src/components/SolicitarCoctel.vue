@@ -18,12 +18,7 @@
 </template>
 
 <style scoped>
-/* Estilos actualizados */
 #coctelContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   background-color: #F0F0F0;
 }
 
@@ -31,18 +26,27 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
-  max-width: 400px;
-  margin: 0 20px;
+  text-align: center;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer; /* Estilo para indicar que es seleccionable */
 }
 
-.coctelImage {
-  max-width: 100px;
+.nombre {
+  display: block;
+  margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .caja {
+    /* Estilos para pantallas pequeñas */
+    max-width: 100%;
+    margin: 0 auto;
+  }
 }
 </style>
+
 
 <script>
 import { jsPDF } from 'jspdf';
@@ -59,14 +63,19 @@ export default {
       try {
         const response = await fetch('http://localhost:8080/galeria/v1/productos');
         const data = await response.json();
-        this.cocteles = data.drinks;
+        this.cocteles = data; // Asegúrate de que esto coincida con la estructura de tu respuesta de la API
       } catch (error) {
         console.error("Se ha producido un error: " + error);
       }
     },
-    seleccionarCoctelYGenerarFactura(nombreCoctel, precio) {
-      this.coctelSeleccionado = { nombre: nombreCoctel, precio: precio };
-      this.generarFactura();
+    async seleccionarCoctelYGenerarFactura(nombreCoctel, precioCoctel) {
+      try {
+        this.coctelSeleccionado = { nombre: nombreCoctel, precio: precioCoctel };
+        this.generarFactura();
+      } catch (error) {
+        console.error("Se ha producido un error al seleccionar el cóctel: " + error);
+        alert('Error al seleccionar el cóctel.');
+      }
     },
     generarFactura() {
       if (this.coctelSeleccionado && this.coctelSeleccionado.nombre) {
@@ -77,6 +86,14 @@ export default {
       } else {
         alert('Por favor, selecciona un cóctel antes de generar la factura.');
       }
+    },
+    anadeImg(base64, tipo) {
+      var img = document.createElement('img');
+      img.src = 'data:image/jpeg;base64,' + base64;
+      img.classList.add('coctelImage');
+      var container = document.querySelector(`.container-${tipo}`);
+      container.innerHTML = ''; // Limpia el contenedor antes de añadir la nueva imagen
+      container.appendChild(img);
     },
     traerImagenA() {
       fetch("http://localhost:8080/galeria/v1/imagenes/4", {
@@ -98,14 +115,6 @@ export default {
       .then(response => response.json()) 
       .then(data => this.anadeImg(data.imagen, 'C')); // Se ha añadido un segundo parámetro para diferenciar las imágenes
       
-    },
-    anadeImg(base64, tipo) {
-      var img = document.createElement('img');
-      img.src = 'data:image/jpeg;base64,' + base64;
-      img.classList.add('coctelImage');
-      var container = document.querySelector(`.container-${tipo}`);
-      container.innerHTML = ''; // Limpia el contenedor antes de añadir la nueva imagen
-      container.appendChild(img);
     },
   },
   mounted() {
