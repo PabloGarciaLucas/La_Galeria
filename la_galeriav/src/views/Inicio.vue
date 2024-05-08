@@ -24,16 +24,24 @@
       </nav>
     </header>
     <main>
-      <section class="contenido row">
+      <section class="contenido row align-items-stretch">
         <div class="col-md-12">
-          <div class="descripcion-box">
-            <p class="descripcion">La Galería es una aplicación web pensada para los jóvenes fiesteros fanáticos de la fiesta y sobretodo las previas.</p>
-          </div>
-          <div class="descripcion-box">
-            <p class="descripcion">Nuestra aplicación está pensada para que los jóvenes puedan pedir sus cócteles favoritos y que estos puedan llegar a su propia casa frescos como si estuvieran recién hechos y, además, con la posibilidad de personalizar su propio vaso.</p>
-          </div>
-          <div class="descripcion-box">
-            <p class="descripcion">En La Galería, la música y el buen ambiente son nuestra especialidad. Con nuestras jam sessions llenas de talento y pasión, cada visita es una experiencia única. Y ahora, con nuestro conveniente servicio de entrega de alcohol a domicilio, puedes recrear la atmósfera de La Galería en la intimidad de tu hogar. ¿Qué estás esperando? ¡Haz tu pedido y comienza la fiesta!</p>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="descripcion-box">
+                <p class="descripcion">La Galería es una aplicación web pensada para los jóvenes fiesteros fanáticos de la fiesta y sobretodo las previas.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="descripcion-box">
+                <p class="descripcion">Nuestra aplicación está pensada para que los jóvenes puedan pedir sus cócteles favoritos y que estos puedan llegar a su propia casa frescos como si estuvieran recién hechos y, además, con la posibilidad de personalizar su propio vaso.</p>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="descripcion-box" id="gale">
+                <p class="descripcion">En La Galería, la música y el buen ambiente son nuestra especialidad. Con nuestras jam sessions llenas de talento y pasión, cada visita es una experiencia única. Y ahora, con nuestro conveniente servicio de entrega de alcohol a domicilio, puedes recrear la atmósfera de La Galería en la intimidad de tu hogar. ¿Qué estás esperando? ¡Haz tu pedido y comienza la fiesta!</p>
+              </div>
+            </div>
           </div>
           <div class="mapa">
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12049.919065005864!2d-5.6693859!3d40.9709742!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3f2622d597a589%3A0xdbc39ae397cd5287!2sLa%20Galer%C3%ADa!5e0!3m2!1ses!2ses!4v1712484005499!5m2!1ses!2ses" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -115,6 +123,11 @@ export default {
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Ajustamos la altura al 100% */
+  }
+
+  #gale{
+    margin-top: 20px;
   }
 
   .descripcion{
