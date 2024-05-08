@@ -18,32 +18,47 @@
 </template>
 
 <style scoped>
+    #coctelContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #F0F0F0;
+    }
+/* Estilos actualizados */
 #coctelContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   background-color: #F0F0F0;
 }
-
+    .caja {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 400px;
+        margin: 0 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 .caja {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
-  text-align: center;
-  cursor: pointer;
+  max-width: 400px;
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer; /* Estilo para indicar que es seleccionable */
 }
-
-.nombre {
-  display: block;
-  margin-top: 10px;
-}
-
-@media (max-width: 767px) {
-  .caja {
-    /* Estilos para pantallas pequeñas */
-    max-width: 100%;
-    margin: 0 auto;
-  }
+    .coctelImage {
+        max-width: 100px;
+    }
+.coctelImage {
+  max-width: 100px;
 }
 </style>
 
