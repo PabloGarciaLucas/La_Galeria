@@ -1,11 +1,18 @@
 <template>
-  <nav id="app">
-    <router-link to="/" class="nav-link">Inicio</router-link>
-    <router-link to="/solicitarProducto" class="nav-link">Solicitar un Producto</router-link>
-    <router-link to="/dudas" class="nav-link">Dudas</router-link>
-    <router-link to="/login" class="nav-link">Log In</router-link>
-  </nav>
-  <router-view/>
+  <div>
+    <nav id="app">
+      <router-link to="/" class="nav-link">Inicio</router-link>
+      <router-link to="/solicitarProducto" class="nav-link">Solicitar un Producto</router-link>
+      <router-link to="/dudas" class="nav-link">Dudas</router-link>
+      <router-link to="/login" class="nav-link">Log In</router-link>
+    </nav>
+    
+    <footer class="footer">
+      <p>Este es el footer.</p>
+    </footer>
+    
+    <router-view/>
+  </div>
 </template>
 
 <style scoped>
@@ -38,12 +45,23 @@
 .nav-link.router-link-exact-active {
   color: #fff; 
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #949697;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
 </style>
 
 <script>
-  export default {
-    methods: {
-     
-    },
-  }
+export default {
+  methods: {
+   
+  },
+}
 </script>
