@@ -34,6 +34,7 @@
 
 #pagina{
   height:1000px;
+  width: 100%;
 }
 .nav-link {
   font-weight: bold;

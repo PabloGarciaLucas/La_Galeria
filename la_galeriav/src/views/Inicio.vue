@@ -99,7 +99,7 @@ export default {
   .container {
     padding: 20px;
     margin-top: 50px;
-    width: 100%;
+    width: 100%px;
     height: 1100px;
     font-family: Arial, sans-serif;
   }
