@@ -90,6 +90,15 @@ export default {
           });
         })
         .catch(error => console.error('Error al traer imágenes:', error));
+    },
+    anadeImg(id) {
+      fetch(`http://localhost:8080/galeria/v1/imagenes/${id}`, {})
+        .then(response => response.json())
+        .then(data => {
+          let imagenBase64 = 'data:image/jpeg;base64,' + data.base64;
+          this.imagenes.push(imagenBase64);
+        })
+        .catch(error => console.error('Error al traer la imagen:', error));
     }
   }
 }
@@ -99,7 +108,7 @@ export default {
   .container {
     padding: 20px;
     margin-top: 50px;
-    width: 100%px;
+    width: 100%;
     height: 1100px;
     font-family: Arial, sans-serif;
   }

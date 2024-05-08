@@ -54,9 +54,9 @@
   align-items: center;
   cursor: pointer; /* Estilo para indicar que es seleccionable */
 }
-    .coctelImage {
-        max-width: 100px;
-    }
+.coctelImage {
+  max-width: 100px;
+}
 .coctelImage {
   max-width: 100px;
 }
