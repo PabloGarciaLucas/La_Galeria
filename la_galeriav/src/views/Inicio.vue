@@ -37,6 +37,8 @@
                 <p class="descripcion">Nuestra aplicación está pensada para que los jóvenes puedan pedir sus cócteles favoritos y que estos puedan llegar a su propia casa frescos como si estuvieran recién hechos y, además, con la posibilidad de personalizar su propio vaso.</p>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-12">
               <div class="descripcion-box" id="gale">
                 <p class="descripcion">En La Galería, la música y el buen ambiente son nuestra especialidad. Con nuestras jam sessions llenas de talento y pasión, cada visita es una experiencia única. Y ahora, con nuestro conveniente servicio de entrega de alcohol a domicilio, puedes recrear la atmósfera de La Galería en la intimidad de tu hogar. ¿Qué estás esperando? ¡Haz tu pedido y comienza la fiesta!</p>
@@ -141,7 +143,7 @@ export default {
   }
 
   .mapa {
-    margin-top: 10px;
+    margin-top: 50px;
   }
 
   iframe {
