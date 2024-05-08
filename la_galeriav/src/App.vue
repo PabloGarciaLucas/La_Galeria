@@ -8,7 +8,16 @@
     </nav>
     
     <footer class="footer">
-      <p>Este es el footer.</p>
+      <p>Barrio del oeste</p>
+      <p>Calle Dr. Jaime Vera, 19, 15, 37007 Salamanca.</p>
+      <div class="footer-content">
+        <a href="/politica-privacidad">Política de Privacidad</a>
+        | 
+        <a href="/politica-cookies">Política de Cookies</a>
+        | 
+        <a href="/legal">Aviso Legal</a>
+        | <a href="/accesibilidad">Accesibilidad</a>  
+      </div>
     </footer>
     
     <router-view/>
@@ -51,11 +60,13 @@
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 120px;
   background-color: #949697;
   color: #fff;
-  padding: 10px 0;
+  padding: 20px 0;
   text-align: center;
 }
+
 </style>
 
 <script>
