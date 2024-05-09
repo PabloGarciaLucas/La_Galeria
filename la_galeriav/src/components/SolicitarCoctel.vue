@@ -1,7 +1,7 @@
 <template>
   <div id="coctelContainer">
     <div v-for="coctel in cocteles" :key="coctel.id" class="container" @click="seleccionarCoctelYGenerarFactura(coctel.nombre, coctel.precio)">
-      <!-- La imagen se añadirá aquí -->
+      <div @load="traerImagenA()" class="container"></div>
       <span class="nombre">{{ coctel.nombre }}</span>
     </div>
   </div>
@@ -117,9 +117,15 @@ export default {
       container.innerHTML = ''; // Limpia el contenedor antes de añadir la nueva imagen
       container.appendChild(img);
     },
+    traerImagenA() {
+      fetch("http://localhost:8080/galeria/v1/imagenes/2", {})
+        .then(response => response.json())
+        .then(data => this.anadeImg(data.imagen));
+    }
   },
   mounted() {
     this.fetchCocteles();
+    this.traerImagenA();
   }
 }
 </script>
