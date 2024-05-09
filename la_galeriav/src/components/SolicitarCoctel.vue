@@ -1,31 +1,13 @@
 <template>
   <div id="coctelContainer">
-    <div class="container container-A" @click="seleccionarCoctelYGenerarFactura('Jägermeister Mojito', 7.50)">
+    <div v-for="coctel in cocteles" :key="coctel.id" class="container" @click="seleccionarCoctelYGenerarFactura(coctel.nombre, coctel.precio)">
       <!-- La imagen se añadirá aquí -->
+      <span class="nombre">{{ coctel.nombre }}</span>
     </div>
-    <span class="nombre">Jägermeister Mojito</span>
-
-    <div class="container container-B" @click="seleccionarCoctelYGenerarFactura('Sweet Star Martini', 8.00)">
-      <!-- La imagen se añadirá aquí -->
-    </div>
-    <span class="nombre">Sweet Star Martini</span>
-
-    <div class="container container-C" @click="seleccionarCoctelYGenerarFactura('Cerveza Rubia Belga Fuerte', 6.00)">
-      <!-- La imagen se añadirá aquí -->
-    </div>
-    <span class="nombre">Cerveza Rubia Belga Fuerte</span>
   </div>
 </template>
 
 <style scoped>
-    #coctelContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #F0F0F0;
-    }
-/* Estilos actualizados */
 #coctelContainer {
   display: flex;
   justify-content: center;
@@ -33,16 +15,6 @@
   height: 100vh;
   background-color: #F0F0F0;
 }
-    .caja {
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 20px;
-        max-width: 400px;
-        margin: 0 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 .caja {
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -57,11 +29,7 @@
 .coctelImage {
   max-width: 100px;
 }
-.coctelImage {
-  max-width: 100px;
-}
 </style>
-
 
 <script>
 import { jsPDF } from 'jspdf';
@@ -86,10 +54,45 @@ export default {
     async seleccionarCoctelYGenerarFactura(nombreCoctel, precioCoctel) {
       try {
         this.coctelSeleccionado = { nombre: nombreCoctel, precio: precioCoctel };
+        await this.insertarPedido(nombreCoctel, precioCoctel);
         this.generarFactura();
       } catch (error) {
         console.error("Se ha producido un error al seleccionar el cóctel: " + error);
         alert('Error al seleccionar el cóctel.');
+      }
+    },
+    async insertarPedido(nombreCoctel, precioCoctel) {
+      try {
+        const response = await fetch('http://localhost:8080/galeria/v1/pedidos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            nombreCoctel,
+            precioCoctel
+          })
+        });
+        if (response.ok) {
+          console.log('Pedido insertado correctamente.');
+        } else {
+          console.error('Error al insertar el pedido.');
+        }
+      } catch (error) {
+        console.error("Se ha producido un error al insertar el pedido: " + error);
+        throw error;
+      }
+    },
+    async recuperarNombreYPrecioCoctelDesdeBD(idCoctel) {
+      try {
+        const response = await fetch(`http://localhost:8080/galeria/v1/productos/${idCoctel}`);
+        const data = await response.json();
+        const nombreCoctel = data.nombre;
+        const precioCoctel = data.precio;
+        return { nombreCoctel, precioCoctel };
+      } catch (error) {
+        console.error("Se ha producido un error al recuperar el nombre y el precio del cóctel: " + error);
+        throw error;
       }
     },
     generarFactura() {
@@ -110,33 +113,9 @@ export default {
       container.innerHTML = ''; // Limpia el contenedor antes de añadir la nueva imagen
       container.appendChild(img);
     },
-    traerImagenA() {
-      fetch("http://localhost:8080/galeria/v1/imagenes/4", {
-      })
-      .then(response => response.json()) 
-      .then(data => this.anadeImg(data.imagen, 'A')); // Se ha añadido un segundo parámetro para diferenciar las imágenes
-      
-    },
-    traerImagenB() {
-      fetch("http://localhost:8080/galeria/v1/imagenes/5", {
-      })
-      .then(response => response.json()) 
-      .then(data => this.anadeImg(data.imagen, 'B')); // Se ha añadido un segundo parámetro para diferenciar las imágenes
-      
-    },
-    traerImagenC() {
-      fetch("http://localhost:8080/galeria/v1/imagenes/6", {
-      })
-      .then(response => response.json()) 
-      .then(data => this.anadeImg(data.imagen, 'C')); // Se ha añadido un segundo parámetro para diferenciar las imágenes
-      
-    },
   },
   mounted() {
-    this.traerImagenA();
-    this.traerImagenB();
-    this.traerImagenC();
+    this.fetchCocteles();
   }
 }
 </script>
-
