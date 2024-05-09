@@ -45,7 +45,11 @@ export default {
     async fetchCocteles() {
       try {
         const response = await fetch('http://localhost:8080/galeria/v1/productos');
-        const data = await response.json();
+        let data = await response.json();
+        // Limita el número de cócteles a tres
+        if (data.length > 3) {
+          data = data.slice(0, 3);
+        }
         this.cocteles = data; // Asegúrate de que esto coincida con la estructura de tu respuesta de la API
       } catch (error) {
         console.error("Se ha producido un error: " + error);
