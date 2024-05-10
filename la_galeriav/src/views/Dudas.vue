@@ -1,10 +1,12 @@
 <template>
   <div id="containerForo" class="container">
+    <h2 class="mb-4">Dudas</h2>
+    <p class="lead mb-4">¡Bienvenido a La Galería! Entendemos que al visitar nuestra página web, puedan surgir algunas preguntas. ¡No te preocupes, estamos aquí para ayudarte! Hemos recopilado algunas de las dudas más comunes para que puedas navegar por nuestra página con confianza:</p>
     <div class="row">
       <div class="col-sm-12 col-md-4 mb-3">
         <div class="caja">
           <h2 class="tituloPregunta">¿Cómo funciona nuestra aplicación?</h2>
-          <p class="respuesta">El funcionamiento de nuestra aplicación es simple. El cliente cuenta con dos opciones: "Solicitar un cóctel", en la que el cliente solicita un cóctel ya predefinido el cual será enviado a su ubicación, y "Personalizar un Cóctel", en la que permitimos a nuestro cliente, además de escoger su cóctel, escoger la cristalería que desea que tenga su vaso además de poder quedársela para que pueda disfrutar de otros cócteles futuros.</p>
+          <p class="respuesta">La aplicación ofrece dos opciones: "Solicitar un cóctel", donde se elige uno predefinido y se envía al cliente, y "Personalizar un Cóctel", que permite al cliente elegir el cóctel y la cristalería, la cual puede conservar para futuros pedidos.</p>
           <div @load="traerImagen()" class="containerImagen"></div>
         </div>
       </div>
@@ -55,7 +57,7 @@ export default {
     anadeImg(base64) {
       var img = document.createElement('img');
       img.src = 'data:image/jpeg;base64,' + base64;
-      document.querySelector('.container:last-child').appendChild(img);
+      document.querySelector('.containerImagen:last-child').appendChild(img);
     },
   },
   mounted() {
@@ -72,7 +74,9 @@ export default {
   min-height: 100vh;
   background-color: #f0f0f0;
 }
-
+h2{
+  text-align: center;
+}
 .caja {
   border: 2px solid #ccc;
   border-radius: 10px;
@@ -89,5 +93,9 @@ export default {
   font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 20px;
+}
+
+.containerImagen {
+  min-height: 100px; /* Asegura que todos los contenedores de imagen tengan la misma altura */
 }
 </style>
