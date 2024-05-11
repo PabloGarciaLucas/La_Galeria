@@ -7,7 +7,7 @@
         <div class="caja">
           <h2 class="tituloPregunta">¿Cómo funciona nuestra aplicación?</h2>
           <p class="respuesta">La aplicación ofrece dos opciones: "Solicitar un cóctel", donde se elige uno predefinido y se envía al cliente, y "Personalizar un Cóctel", que permite al cliente elegir el cóctel y la cristalería, la cual puede conservar para futuros pedidos.</p>
-          <div @load="traerImagen()" class="containerImagen"></div>
+          <div ref="containerImagen1" class="containerImagen"></div>
         </div>
       </div>
 
@@ -15,7 +15,7 @@
         <div class="caja">
           <h2 class="tituloPregunta">¿Hasta dónde llegan nuestros servicios?</h2>
           <p class="respuesta">Nuestros servicios por ahora solo abarcan toda Salamanca, pero pretendemos extender este servicio a nivel nacional.</p>
-          <div @load="traerImagen2()" class="containerImagen"></div>
+          <div ref="containerImagen2" class="containerImagen"></div>
         </div>
       </div>
 
@@ -23,7 +23,7 @@
         <div class="caja">
           <h2 class="tituloPregunta">¿Hasta qué horario está abierta la entrega de cócteles los fines de semana?</h2>
           <p class="respuesta">Al ser un servicio pensado para previas, el horario de servicio es de 22:30 hasta las 4:30 de viernes a domingo.</p>
-          <div @load="traerImagen3()" class="containerImagen"></div>
+          <div ref="containerImagen3" class="containerImagen"></div>
         </div>
       </div>
     </div>
@@ -39,31 +39,21 @@ export default {
     }
   },
   methods: {
-    traerImagen() {
+    traerImagen(container) {
       fetch("http://localhost:8080/galeria/v1/imagenes/7", {})
         .then(response => response.json())
-        .then(data => this.anadeImg(data.imagen));
+        .then(data => this.anadeImg(data.imagen, container));
     },
-    traerImagen2() {
-      fetch("http://localhost:8080/galeria/v1/imagenes/7", {})
-        .then(response => response.json())
-        .then(data => this.anadeImg(data.imagen));
-    },
-    traerImagen3() {
-      fetch("http://localhost:8080/galeria/v1/imagenes/7", {})
-        .then(response => response.json())
-        .then(data => this.anadeImg(data.imagen));
-    },
-    anadeImg(base64) {
+    anadeImg(base64, container) {
       var img = document.createElement('img');
       img.src = 'data:image/jpeg;base64,' + base64;
-      document.querySelector('.containerImagen:last-child').appendChild(img);
+      container.appendChild(img);
     },
   },
   mounted() {
-    this.traerImagen();
-    this.traerImagen2();
-    this.traerImagen3();
+    this.traerImagen(this.$refs.containerImagen1);
+    this.traerImagen(this.$refs.containerImagen2);
+    this.traerImagen(this.$refs.containerImagen3);
   }
 }
 </script>
@@ -77,11 +67,19 @@ export default {
 h2{
   text-align: center;
 }
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
 .caja {
   border: 2px solid #ccc;
   border-radius: 10px;
   padding: 20px;
-  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px; /* Ajusta este valor según tus necesidades */
 }
 
 .tituloPregunta {
@@ -97,5 +95,7 @@ h2{
 
 .containerImagen {
   min-height: 100px; /* Asegura que todos los contenedores de imagen tengan la misma altura */
+  display: flex;
+  justify-content: center;
 }
 </style>
