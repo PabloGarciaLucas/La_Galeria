@@ -3,13 +3,13 @@
     <header class="text-center">
       <h1 class="mb-4 header-title">La Galería</h1> 
       <nav>
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" v-if="imagenes.length">
           <ol class="carousel-indicators">
             <li v-for="(imagen, index) in imagenes" :data-bs-target="'#carouselExample'" :data-bs-slide-to="index" :class="{ active: index === 0 }"></li>
           </ol>
           <div class="carousel-inner">
             <div v-for="(imagen, index) in imagenes" :class="{ 'carousel-item': true, active: index === 0 }">
-              <img :src="imagen" class="d-block w-100" alt="Imagen de la galería">
+              <img :src="imagen.src" class="d-block w-100" alt="Imagen de la galería">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
@@ -80,7 +80,16 @@ export default {
       fetch("http://localhost:8080/galeria/v1/imagenes", {})
         .then(response => response.json())
         .then(data => {
-          this.imagenes = data.map(imagen => 'data:image/jpeg;base64,' + imagen.base64);
+          this.imagenes = data.map(imagen => {
+            let imagenBase64 = 'data:image/jpeg;base64,' + imagen.base64;
+            const img = new Image();
+            img.onload = () => console.log('Imagen cargada con éxito');
+            img.onerror = () => console.error('Error al cargar la imagen');
+            img.src = imagenBase64;
+            img.classList.add('d-block', 'w-100');
+            img.alt = "Imagen de la galería";
+            return img;
+          });
           this.$nextTick(() => {
             var myCarousel = document.querySelector('#carouselExample');
             var carousel = new Carousel(myCarousel, {
@@ -175,3 +184,4 @@ export default {
     height: auto;
   }
 </style>
+
