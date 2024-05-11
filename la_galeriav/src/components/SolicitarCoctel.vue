@@ -15,7 +15,7 @@
   height: 100vh;
   background-color: #F0F0F0;
 }
-.caja {
+.container {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
@@ -51,6 +51,9 @@ export default {
           data = data.slice(0, 3);
         }
         this.cocteles = data;
+        this.cocteles.forEach(coctel => {
+          this.traerImagen(coctel.id);
+        });
       } catch (error) {
         console.error("Se ha producido un error: " + error);
       }
@@ -109,28 +112,36 @@ export default {
         alert('Por favor, selecciona un cóctel antes de generar la factura.');
       }
     },
-    anadeImg(base64, idCoctel) {
-      this.$nextTick(() => {
-        var img = document.createElement('img');
-        img.src = 'data:image/jpeg;base64,' + base64;
+    traerImagen(id) {
+      fetch(`http://localhost:8080/galeria/v1/imagenes/${id}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error al cargar la imagen');
+        }
+        return response.json();
+      })
+      .then(data => this.anadeImg(data.imagen, id))
+      .catch(error => console.error(error));
+    },
+    anadeImg(base64, id) {
+      const container = document.querySelector(`#container-${id}`);
+      if (container) {
+        const img = new Image();
+        img.onload = () => console.log('Imagen cargada con éxito');
+        img.onerror = () => console.error('Error al cargar la imagen');
+        img.src = `data:image/jpeg;base64,${base64}`;
         img.classList.add('coctelImage');
-        var container = document.querySelector(`#container-${idCoctel}`);
         container.innerHTML = '';
         container.appendChild(img);
-      });
+      } else {
+        console.error(`El contenedor para el id ${id} no existe.`);
+      }
     },
-    traerImagenA(idCoctel) {
-      fetch(`http://localhost:8080/galeria/v1/imagenes/${idCoctel}`, {})
-        .then(response => response.json())
-        .then(data => this.anadeImg(data.imagen, idCoctel));
-    }
   },
   mounted() {
     this.fetchCocteles();
-    this.cocteles.forEach(coctel => {
-      this.traerImagenA(coctel.id);
-    });
   }
 }
 </script>
+
 
