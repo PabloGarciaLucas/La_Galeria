@@ -1,7 +1,7 @@
 <template>
   <div id="coctelContainer">
     <div v-for="coctel in cocteles" :key="coctel.id" class="container" @click="seleccionarCoctelYGenerarFactura(coctel.nombre, coctel.precio)">
-      <div @load="traerImagenA()" class="container"></div>
+      <div :id="'container-' + coctel.id" class="container"></div>
       <span class="nombre">{{ coctel.nombre }}</span>
     </div>
   </div>
@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer; /* Estilo para indicar que es seleccionable */
+  cursor: pointer;
 }
 .coctelImage {
   max-width: 100px;
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       cocteles: [],
-      coctelSeleccionado: null // Añadido para almacenar el cóctel seleccionado
+      coctelSeleccionado: null
     }
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
         if (data.length > 3) {
           data = data.slice(0, 3);
         }
-        this.cocteles = data; // Asegúrate de que esto coincida con la estructura de tu respuesta de la API
+        this.cocteles = data;
       } catch (error) {
         console.error("Se ha producido un error: " + error);
       }
@@ -109,23 +109,28 @@ export default {
         alert('Por favor, selecciona un cóctel antes de generar la factura.');
       }
     },
-    anadeImg(base64, tipo) {
-      var img = document.createElement('img');
-      img.src = 'data:image/jpeg;base64,' + base64;
-      img.classList.add('coctelImage');
-      var container = document.querySelector(`.container-${tipo}`);
-      container.innerHTML = ''; // Limpia el contenedor antes de añadir la nueva imagen
-      container.appendChild(img);
+    anadeImg(base64, idCoctel) {
+      this.$nextTick(() => {
+        var img = document.createElement('img');
+        img.src = 'data:image/jpeg;base64,' + base64;
+        img.classList.add('coctelImage');
+        var container = document.querySelector(`#container-${idCoctel}`);
+        container.innerHTML = '';
+        container.appendChild(img);
+      });
     },
-    traerImagenA() {
-      fetch("http://localhost:8080/galeria/v1/imagenes/2", {})
+    traerImagenA(idCoctel) {
+      fetch(`http://localhost:8080/galeria/v1/imagenes/${idCoctel}`, {})
         .then(response => response.json())
-        .then(data => this.anadeImg(data.imagen));
+        .then(data => this.anadeImg(data.imagen, idCoctel));
     }
   },
   mounted() {
     this.fetchCocteles();
-    this.traerImagenA();
+    this.cocteles.forEach(coctel => {
+      this.traerImagenA(coctel.id);
+    });
   }
 }
 </script>
+
