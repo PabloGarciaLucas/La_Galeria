@@ -1,55 +1,15 @@
 <template>
-  <div id="coctelContainer">
-    <div class="container container-VasoD" @click="seleccionarCoctelYGenerarFactura('Jägermeister Mojito', 7.50)"></div>
-    <span class="nombre">Jägermeister Mojito</span>
-
-    <div class="container container-VasoE" @click="seleccionarCoctelYGenerarFactura('Sweet Star Martini', 8.00)"></div>
-    <span class="nombre">Sweet Star Martini</span>
-
-    <div class="container container-VasoF" @click="seleccionarCoctelYGenerarFactura('Cerveza Rubia Belga Fuerte', 6.00)"></div>
-    <span class="nombre">Cerveza Rubia Belga Fuerte</span>
+  <div>
+    <div v-for="coctel in cocteles" :key="coctel.id" class="container" @click="seleccionarCoctel(coctel.nombre, coctel.precio)">
+      <div :id="'container-' + coctel.id" class="container"></div>
+      <span class="nombre">{{ coctel.nombre }}</span>
+    </div>
+    <div v-for="vaso in vasos" :key="vaso.id" class="container" @click="seleccionarVaso(vaso.nombre, vaso.precio)">
+      <div :id="'container-' + vaso.id" class="container"></div>
+      <span class="nombre">{{ vaso.nombre }}</span>
+    </div>
   </div>
-
-  <hr>
-
-  <div id="vasoContainer">
-    <div class="container container-VasoA" @click="seleccionarVasoYGenerarFactura('Vaso con Ondas', 2.50)"></div>
-    <span class="nombre">Vaso con Ondas</span>
-
-    <div class="container container-VasoB" @click="seleccionarVasoYGenerarFactura('Vaso Mini', 3.50)"></div>
-    <span class="nombre">Vaso Mini</span>
-
-    <div class="container container-VasoC" @click="seleccionarVasoYGenerarFactura('Vaso Redondeado', 5.50)"></div>
-    <span class="nombre">Vaso Redondeado</span>
-  </div>
-
 </template>
-
-<style scoped>
-#vasoContainer, #coctelContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #F0F0F0;
-}
-
-.container {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 400px;
-  margin: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.coctelImage {
-  max-width: 100px;
-}
-</style>
 
 <script>
 import { jsPDF } from 'jspdf';
@@ -58,36 +18,39 @@ export default {
   data() {
     return {
       cocteles: [],
+      vasos: [],
       coctelSeleccionado: null,
       vasoSeleccionado: null
     }
   },
   methods: {
-    async fetchCocteles() {
+    async fetchItems() {
       try {
         const response = await fetch('http://localhost:8080/galeria/v1/productos');
         if (!response.ok) {
-          throw new Error('Error al cargar los cócteles');
+          throw new Error('Error al cargar los items');
         }
         const data = await response.json();
-        this.cocteles = data.drinks;
+        this.cocteles = data.filter(item => item.id <= 3); // Asumiendo que los ids 1, 2 y 3 son cócteles
+        this.vasos = data.filter(item => item.id > 3); // Asumiendo que los ids 4, 5 y 6 son vasos
       } catch (error) {
         console.error(error);
       }
     },
-    seleccionarCoctelYGenerarFactura(nombreCoctel, precio) {
+    seleccionarCoctel(nombreCoctel, precio) {
       this.coctelSeleccionado = { nombre: nombreCoctel, precio: precio };
-      this.verificarSeleccionYGenerarFactura();
     },
-    seleccionarVasoYGenerarFactura(nombreVaso, precio) {
+    seleccionarVaso(nombreVaso, precio) {
+      if (!this.coctelSeleccionado) {
+        alert('Por favor, selecciona un cóctel antes de seleccionar un vaso.');
+        return;
+      }
       this.vasoSeleccionado = { nombre: nombreVaso, precio: precio };
       this.verificarSeleccionYGenerarFactura();
     },
     verificarSeleccionYGenerarFactura() {
       if (this.coctelSeleccionado && this.vasoSeleccionado) {
         this.generarFactura();
-      } else {
-        alert('Por favor, selecciona un cóctel y un vaso antes de generar la factura.');
       }
     },
     generarFactura() {
@@ -96,6 +59,8 @@ export default {
       doc.text(`Precio Cóctel: ${this.coctelSeleccionado.precio.toFixed(2)}€`, 20, 30);
       doc.text(`Vaso Seleccionado: ${this.vasoSeleccionado.nombre}`, 20, 40);
       doc.text(`Precio Vaso: ${this.vasoSeleccionado.precio.toFixed(2)}€`, 20, 50);
+      const precioTotal = this.coctelSeleccionado.precio + this.vasoSeleccionado.precio;
+      doc.text(`Precio Total: ${precioTotal.toFixed(2)}€`, 20, 60);
       doc.save('factura.pdf');
     },
     traerImagen(id) {
@@ -110,8 +75,7 @@ export default {
       .catch(error => console.error(error));
     },
     anadeImg(base64, id) {
-      const tipo = String.fromCharCode(64 + parseInt(id)); // Convierte el id numérico a letra
-      const container = document.querySelector(`.container-Vaso${tipo}`);
+      const container = document.querySelector(`#container-${id}`);
       if (container) {
         const img = new Image();
         img.onload = () => console.log('Imagen cargada con éxito');
@@ -121,12 +85,12 @@ export default {
         container.innerHTML = '';
         container.appendChild(img);
       } else {
-        console.error(`El contenedor para el tipo Vaso${tipo} no existe.`);
+        console.error(`El contenedor para el id ${id} no existe.`);
       }
     },
   },
   mounted() {
-    this.fetchCocteles();
+    this.fetchItems();
     for (let i = 1; i <= 6; i++) {
       this.traerImagen(i);
     }
