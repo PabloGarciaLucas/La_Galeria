@@ -79,7 +79,7 @@ h2{
   padding: 20px;
   display: flex;
   flex-direction: column;
-  min-height: 500px; /* Ajusta este valor según tus necesidades */
+  min-height: 500px;
 }
 
 .tituloPregunta {
@@ -94,7 +94,7 @@ h2{
 }
 
 .containerImagen {
-  min-height: 100px; /* Asegura que todos los contenedores de imagen tengan la misma altura */
+  min-height: 100px;
   display: flex;
   justify-content: center;
 }

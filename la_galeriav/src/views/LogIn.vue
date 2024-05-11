@@ -34,8 +34,8 @@ body {
 }
 
 .formularioLogIn {
-  max-width: 400px; /* Añade un ancho máximo */
-  width: 100%; /* Hace que el formulario ocupe todo el ancho disponible */
+  max-width: 400px;
+  width: 100%;
 }
 
 .rounded {
