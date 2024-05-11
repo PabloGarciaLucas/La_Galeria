@@ -1,15 +1,51 @@
 <template>
   <div>
-    <div v-for="coctel in cocteles" :key="coctel.id" class="container" @click="seleccionarCoctel(coctel.nombre, coctel.precio)">
-      <div :id="'container-' + coctel.id" class="container"></div>
-      <span class="nombre">{{ coctel.nombre }}</span>
+    <div id="coctelContainer">
+      <div v-for="coctel in cocteles" :key="coctel.id" class="container" @click="seleccionarCoctel(coctel.nombre, coctel.precio)">
+        <div :id="'container-' + coctel.id" class="container"></div>
+        <span class="nombre">{{ coctel.nombre }}</span>
+      </div>
     </div>
-    <div v-for="vaso in vasos" :key="vaso.id" class="container" @click="seleccionarVaso(vaso.nombre, vaso.precio)">
-      <div :id="'container-' + vaso.id" class="container"></div>
-      <span class="nombre">{{ vaso.nombre }}</span>
+    <hr>
+    <div id="vasoContainer">
+      <div v-for="vaso in vasos" :key="vaso.id" class="container" @click="seleccionarVaso(vaso.nombre, vaso.precio)">
+        <div :id="'container-' + vaso.id" class="container"></div>
+        <span class="nombre">{{ vaso.nombre }}</span>
+      </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+#coctelContainer, #vasoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F0F0F0;
+  flex-wrap: wrap;
+  margin: 100px 0 0 0;
+}
+
+#vasoContainer {
+  padding: 0 0 200px 0;
+}
+
+.container {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.coctelImage {
+  max-width: 100px;
+}
+</style>
 
 <script>
 import { jsPDF } from 'jspdf';
@@ -31,8 +67,8 @@ export default {
           throw new Error('Error al cargar los items');
         }
         const data = await response.json();
-        this.cocteles = data.filter(item => item.id <= 3); // Asumiendo que los ids 1, 2 y 3 son cócteles
-        this.vasos = data.filter(item => item.id > 3); // Asumiendo que los ids 4, 5 y 6 son vasos
+        this.cocteles = data.filter(item => item.id <= 3);
+        this.vasos = data.filter(item => item.id > 3);
       } catch (error) {
         console.error(error);
       }
