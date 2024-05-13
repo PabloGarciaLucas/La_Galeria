@@ -53,9 +53,7 @@
     </main>
     <footer class="text-center mt-5">
       <div class="enlaces">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
+      
       </div>
     </footer>
   </div>
