@@ -6,6 +6,7 @@ import javax.naming.NamingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,12 +35,12 @@ public class UsersControllerRest {
 		return usuarios;
 	}
 	
-	@PostMapping("/usuarios")
+	@PostMapping(value = "/usuarios", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity insertarUsuarios(@RequestBody User user) throws ClassNotFoundException, SQLException, NamingException {
-		
-		Integer resultado = usuariosServicio.insertarUsuarios(user.getUserName(), user.getUserPasswd(), user.getUserEmail());
-		return new ResponseEntity<>("Usuario insertado correctamente", HttpStatus.OK);
+	    Integer resultado = usuariosServicio.insertarUsuarios(user.getUserName(), user.getUserPasswd(), user.getUserEmail());
+	    return new ResponseEntity<>("Usuario insertado correctamente", HttpStatus.OK);
 	}
+
 	
 	@PutMapping("/usuarios")
 	public ResponseEntity actualizarUsuarios(@RequestBody User user) {
