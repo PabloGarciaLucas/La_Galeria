@@ -6,7 +6,7 @@
       <router-link to="/dudas" class="nav-link">Dudas</router-link>
       <router-link to="/login" class="nav-link">Log In</router-link>
     </nav>
-    
+   
     <footer class="footer">
       <p>Barrio del oeste</p>
       <p>Calle Dr. Jaime Vera, 19, 15, 37007 Salamanca.</p>
@@ -47,7 +47,7 @@
 }
 
 .nav-link:hover {
-  color: #b1a6a6;
+  color: #d1d1d1;
 }
 
 .nav-link.router-link-exact-active {
@@ -60,14 +60,20 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 120px;
+  height: 130px;
   z-index: 100;
-  background-color: #949697;
+  background: rgb(20,20,255);
+background: linear-gradient(90deg, rgba(20,20,255,1) 0%, rgba(101,101,101,1) 47%, rgba(104,228,255,1) 100%);
   color: #fff;
   padding: 20px 0;
   text-align: center;
 }
+p{
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
 i{
+  font-size: x-large;
   padding-right: 10px;
 }
 

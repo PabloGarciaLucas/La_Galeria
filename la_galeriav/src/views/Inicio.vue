@@ -123,7 +123,8 @@ export default {
   .header-title {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #ffffff; /* Color del texto */
+    color: #ffffff; 
+    font-weight: bold;
     background-image: url('https://www.shutterstock.com/image-photo/manila-philippines-april-2019-banner-260nw-2130733910.jpg'); 
     opacity: 0.8;
     width: 100%;
