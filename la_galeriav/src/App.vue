@@ -23,8 +23,8 @@
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  color: #2c3e50;
-  background-color: #2c3e50;
+  color: #7baad8;
+  background-color: #4f6f8f;
   padding: 20px 0;
   position: fixed;
   top: 0;
