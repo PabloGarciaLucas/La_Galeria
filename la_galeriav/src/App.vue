@@ -10,6 +10,9 @@
     <footer class="footer">
       <p>Barrio del oeste</p>
       <p>Calle Dr. Jaime Vera, 19, 15, 37007 Salamanca.</p>
+      <i class="fab fa-instagram"></i>
+      <i class="fab fa-facebook"></i>
+      <i class="fab fa-twitter"></i>
     </footer>
     
     <router-view/>
@@ -63,8 +66,9 @@
   color: #fff;
   padding: 20px 0;
   text-align: center;
-  
-
+}
+i{
+  padding-right: 10px;
 }
 
 </style>
