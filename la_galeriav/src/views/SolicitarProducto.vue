@@ -10,14 +10,24 @@
     </div>
     <div class="row">
       <div class="caja mb-3 col-md-6">
-        <router-link to="/solicitarCoctel" class="enlace text-decoration-none">
+        <router-link v-if="registroExitoso" to="/solicitarCoctel" class="enlace text-decoration-none">
+          <h3 class="titulo mb-2">Solicitar Cóctel</h3>
+          <p>¡Elige un cóctel de nuestra lista y te lo prepararemos con los mejores ingredientes!</p>
+          <div id="imagenCoctelA"></div>
+        </router-link>
+        <router-link v-else to="/sign-in" class="enlace text-decoration-none">
           <h3 class="titulo mb-2">Solicitar Cóctel</h3>
           <p>¡Elige un cóctel de nuestra lista y te lo prepararemos con los mejores ingredientes!</p>
           <div id="imagenCoctelA"></div>
         </router-link>
       </div>
       <div class="caja mb-3 col-md-6">
-        <router-link to="/personalizarCoctel" class="enlace text-decoration-none">
+        <router-link v-if="registroExitoso" to="/personalizarCoctel" class="enlace text-decoration-none">
+          <h3 class="titulo mb-2">Personalizar Cóctel</h3>
+          <p>¡Crea tu propio cóctel personalizado eligiendo los ingredientes que más te gusten!</p>
+          <div id="imagenCoctelB"></div>
+        </router-link>
+        <router-link v-else to="/sign-in" class="enlace text-decoration-none">
           <h3 class="titulo mb-2">Personalizar Cóctel</h3>
           <p>¡Crea tu propio cóctel personalizado eligiendo los ingredientes que más te gusten!</p>
           <div id="imagenCoctelB"></div>
@@ -32,7 +42,8 @@ export default {
   name: 'solicitarProducto',
   data() {
     return {
-      imagenes: []
+      imagenes: [],
+      registroExitoso: JSON.parse(localStorage.getItem('registroExitoso')) || false // Estado del registro
     }
   },
   methods: {
@@ -49,15 +60,24 @@ export default {
     anadeImg(base64, id) {
       var img = document.createElement('img');
       img.src = 'data:image/jpeg;base64,' + base64;
-      document.getElementById(id).appendChild(img);
+      var container = document.getElementById(id);
+      if (container) {
+        container.appendChild(img);
+      } else {
+        console.error("Elemento HTML no encontrado:", id);
+      }
     },
   },
   mounted() {
     this.traerImagenA();
     this.traerImagenB();
+    if (!this.registroExitoso) {
+      this.$router.push('/signin');
+    }
   }
 }
 </script>
+
 
 <style scoped>
 #solicitarProducto {

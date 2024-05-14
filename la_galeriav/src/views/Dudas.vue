@@ -79,7 +79,7 @@ h2{
   padding: 20px;
   display: flex;
   flex-direction: column;
-  min-height: 500px;
+ height: 700px;
   flex: 1; /* Añadido para que todos los divs tengan la misma altura */
 }
 
