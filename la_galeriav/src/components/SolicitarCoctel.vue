@@ -1,9 +1,14 @@
 <template>
-  <div id="coctelContainer">
-    <div v-for="coctel in cocteles" :key="coctel.id" class="container"
-      @click="seleccionarCoctelYGenerarFactura(coctel.nombre, coctel.precio)">
-      <div :id="'container-' + coctel.id" class="container"></div>
-      <span class="nombre">{{ coctel.nombre }}</span>
+  <div id="coctelContainer" class="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
+    <h3 class="text-center mb-4">¡Elige entre uno de nuestros deliciosos y sabrosos cócteles!</h3>
+    <div class="d-flex justify-content-center">
+      <div v-for="coctel in cocteles" :key="coctel.id" class="card m-2 border rounded p-3" style="max-width: 400px;"
+        @click="seleccionarCoctelYGenerarFactura(coctel.nombre, coctel.precio)">
+        <div :id="'container-' + coctel.id" class="card-img-top"></div>
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ coctel.nombre }}</h5>
+        </div>
+      </div>
     </div>
   </div>
 </template>
