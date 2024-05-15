@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     async fetchCocteles() {
-      try {
+     
         const response = await fetch('http://localhost:8080/galeria/v1/productos');
         let data = await response.json();
 
@@ -31,22 +31,17 @@ export default {
         this.cocteles.forEach(coctel => {
           this.traerImagen(coctel.id);
         });
-      } catch (error) {
-        console.error("Se ha producido un error: " + error);
-      }
+    
     },
     async seleccionarCoctelYGenerarFactura(nombreCoctel, precioCoctel) {
-      try {
+    
         this.coctelSeleccionado = { nombre: nombreCoctel, precio: precioCoctel };
         await this.insertarPedido(nombreCoctel, precioCoctel);
         this.generarFactura();
-      } catch (error) {
-        console.error("Se ha producido un error al seleccionar el cóctel: " + error);
-        alert('Error al seleccionar el cóctel.');
-      }
+      
     },
     async obtenerUltimoUsuario() {
-      try {
+     
         const response = await fetch('http://localhost:8080/galeria/v1/usuarios');
         if (response.ok) {
           const usuarios = await response.json();
@@ -62,15 +57,12 @@ export default {
           console.error('Error al obtener la lista de usuarios:', response.statusText);
           return null;
         }
-      } catch (error) {
-        console.error('Error al recuperar el último usuario:', error);
-        return null;
-      }
+     
     },
 
 
     async insertarPedido(nombreCoctel, precioCoctel) {
-      try {
+  
         const usuario = await this.obtenerUltimoUsuario();
         if (!usuario) {
           throw new Error('No se pudo obtener el último usuario');
@@ -95,24 +87,18 @@ export default {
         } else {
           console.error('Error al insertar el pedido.');
         }
-      } catch (error) {
-        console.error("Se ha producido un error al insertar el pedido: " + error);
-        throw error;
-      }
+    
     },
 
 
     async recuperarNombreYPrecioCoctelDesdeBD(idCoctel) {
-      try {
+     
         const response = await fetch(`http://localhost:8080/galeria/v1/productos/${idCoctel}`);
         const data = await response.json();
         const nombreCoctel = data.nombre;
         const precioCoctel = data.precio;
         return { nombreCoctel, precioCoctel };
-      } catch (error) {
-        console.error("Se ha producido un error al recuperar el nombre y el precio del cóctel: " + error);
-        throw error;
-      }
+     
     },
     generarFactura() {
       if (this.coctelSeleccionado && this.coctelSeleccionado.nombre) {

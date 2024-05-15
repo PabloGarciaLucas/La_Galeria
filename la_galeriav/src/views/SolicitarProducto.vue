@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       imagenes: [],
-      registroExitoso: JSON.parse(localStorage.getItem('registroExitoso')) || false // Estado del registro
+      registroExitoso: JSON.parse(localStorage.getItem('registroExitoso')) || false 
     }
   },
   methods: {

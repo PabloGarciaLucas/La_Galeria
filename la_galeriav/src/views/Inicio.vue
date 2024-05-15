@@ -52,9 +52,7 @@
       </section>
     </main>
     <footer class="text-center mt-5">
-      <div class="enlaces">
-        
-      </div>
+     
     </footer>
   </div>
 </template>
@@ -91,12 +89,12 @@ export default {
           this.$nextTick(() => {
             var myCarousel = document.querySelector('#carouselExample');
             var carousel = new Carousel(myCarousel, {
-              interval: 2000, // Aquí ajustamos el intervalo a 2 segundos
+              interval: 2000, 
               wrap: true
             });
           });
         })
-        .catch(error => console.error('Error al traer imágenes:', error));
+
     },
     anadeImg(id) {
       fetch(`http://localhost:8080/galeria/v1/imagenes/${id}`, {})
@@ -105,7 +103,7 @@ export default {
           let imagenBase64 = 'data:image/jpeg;base64,' + data.base64;
           this.imagenes.push(imagenBase64);
         })
-        .catch(error => console.error('Error al traer la imagen:', error));
+        
     }
   }
 }
@@ -142,7 +140,7 @@ export default {
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 100%; /* Ajustamos la altura al 100% */
+    height: 100%; 
   }
 
   #gale{
@@ -168,7 +166,6 @@ export default {
     height: 280px;
   }
 
-  /* Estilos para los enlaces dentro del footer */
   .enlaces a {
     color: aliceblue;
     text-decoration: none;

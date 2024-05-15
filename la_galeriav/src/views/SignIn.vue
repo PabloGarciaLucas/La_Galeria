@@ -1,75 +1,64 @@
 <template>
-    <div id="containerSignIn" class="container">
-      <h1 class="tituloRegister">Register</h1>
-      <p v-if="registroExitoso" class="registrado">Registro Realizado Correctamente</p>
-      <form v-if="!registroExitoso" class="formularioRegister" @submit.prevent="register" :disabled="registroExitoso">
-        <div class="form-group">
-          <input type="email" v-model="email" class="form-control rounded" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-          <input type="text" v-model="username" class="form-control rounded" placeholder="Username" required>
-        </div>
-        <div class="form-group">
-          <input type="password" v-model="password" class="form-control rounded" placeholder="Password" required>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Register</button>
-      </form>
-     
-    </div>
-  </template>
+  <div id="containerSignIn" class="container">
+    <h1 class="tituloRegister">Register</h1>
+    <p v-if="registroExitoso" class="registrado">Registro Realizado Correctamente</p>
+    <form v-if="!registroExitoso" class="formularioRegister" @submit.prevent="register" :disabled="registroExitoso">
+      <div class="form-group">
+        <input type="email" v-model="email" class="form-control rounded" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <input type="text" v-model="username" class="form-control rounded" placeholder="Username" required>
+      </div>
+      <div class="form-group">
+        <input type="password" v-model="password" class="form-control rounded" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+  </div>
+</template>
   
   <script>
-  export default {
-    data() {
-      return {
-        email: '',
-        username: '',
-        password: '',
-        registroExitoso: JSON.parse(localStorage.getItem('registroExitoso')) || false 
-      }
-    },
-    methods: {
-  async register() {
-    try {
-      const response = await fetch('http://localhost:8080/galeria/v1/usuarios', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          userEmail: this.email,
-          userName: this.username,
-          userPasswd: this.password,
-          user_role: ["Usuario"]
-        })
-      });
-
-      if (response.ok) {
-        console.log('Usuario registrado exitosamente.');
-        alert('Usuario registrado correctamente.');
-        this.email = '';
-        this.username = '';
-        this.password = '';
-        this.registroExitoso = true; // Establecer el estado del registro como exitoso
-        localStorage.setItem('registroExitoso', JSON.stringify(this.registroExitoso)); // Guardar el estado del registro en localStorage
-
-        // Redirigir al componente Solicitar Producto
-        this.$router.push('/solicitarProducto');
-      } else {
-        console.error('Error al registrar usuario:', response.statusText);
-        alert('Error al registrar usuario. Por favor, inténtalo de nuevo.');
-      }
-    } catch (error) {
-      console.error('Error al registrar usuario:', error);
-      alert('Error al registrar usuario. Por favor, inténtalo de nuevo.');
+export default {
+  data() {
+    return {
+      email: '',
+      username: '',
+      password: '',
+      registroExitoso: JSON.parse(localStorage.getItem('registroExitoso')) || false 
+    }
+  },
+  methods: {
+    async register() {
+        const response = await fetch('http://localhost:8080/galeria/v1/usuarios', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userEmail: this.email,
+            userName: this.username,
+            userPasswd: this.password,
+            user_role: ["Usuario"]
+          })
+        });
+        if (response.ok) {
+          alert('Usuario registrado correctamente.');
+          this.email = '';
+          this.username = '';
+          this.password = '';
+          this.registroExitoso = true; 
+          localStorage.setItem('registroExitoso', JSON.stringify(this.registroExitoso)); 
+          this.$router.push('/solicitarProducto');
+        } else {
+          alert('Este usuario ya existe');
+        }   
     }
   }
 }
+</script>
 
-  }
-  </script>
   
-  <style scoped>
+<style scoped>
   body {
     background-color: #F0F0F0;
   }
@@ -112,5 +101,5 @@
     margin-top: 20px;
     color: rgb(61, 61, 61);
   }
-  </style>
+</style>
   

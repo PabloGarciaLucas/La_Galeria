@@ -80,7 +80,7 @@ h2{
   display: flex;
   flex-direction: column;
  height: 700px;
-  flex: 1; /* Añadido para que todos los divs tengan la misma altura */
+  flex: 1; 
 }
 
 .tituloPregunta {
