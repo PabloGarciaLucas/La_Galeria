@@ -1,27 +1,7 @@
 <template>
   <div class="container">
     <header class="text-center">
-      <h1 class="mb-4 header-title">La Galería</h1> 
-      <nav>
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" v-if="imagenes.length">
-          <ol class="carousel-indicators">
-            <li v-for="(imagen, index) in imagenes" :data-bs-target="'#carouselExample'" :data-bs-slide-to="index" :class="{ active: index === 0 }"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div v-for="(imagen, index) in imagenes" :class="{ 'carousel-item': true, active: index === 0 }">
-              <img :src="imagen.src" class="d-block w-100" alt="Imagen de la galería">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Siguiente</span>
-          </a>
-        </div>
-      </nav>
+      <h1 class="mb-4 header-title">La Galería</h1>  
     </header>
     <main>
       <section class="contenido row align-items-stretch">
@@ -51,61 +31,13 @@
         </div>
       </section>
     </main>
-    <footer class="text-center mt-5">
-     
-    </footer>
   </div>
 </template>
 
 <script>
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Carousel } from 'bootstrap';
-
 export default {
   name: 'Inicio',
-  data() {
-    return {
-      imagenes: []
-    }
-  },
-  mounted() {
-    this.traerImagenes();
-  },
-  methods: {
-    traerImagenes() {
-      fetch("http://localhost:8080/galeria/v1/imagenes", {})
-        .then(response => response.json())
-        .then(data => {
-          this.imagenes = data.map(imagen => {
-            let imagenBase64 = 'data:image/jpeg;base64,' + imagen.base64;
-            const img = new Image();
-            img.onload = () => console.log('Imagen cargada con éxito');
-            img.onerror = () => console.error('Error al cargar la imagen');
-            img.src = imagenBase64;
-            img.classList.add('d-block', 'w-100');
-            img.alt = "Imagen de la galería";
-            return img;
-          });
-          this.$nextTick(() => {
-            var myCarousel = document.querySelector('#carouselExample');
-            var carousel = new Carousel(myCarousel, {
-              interval: 2000, 
-              wrap: true
-            });
-          });
-        })
-
-    },
-    anadeImg(id) {
-      fetch(`http://localhost:8080/galeria/v1/imagenes/${id}`, {})
-        .then(response => response.json())
-        .then(data => {
-          let imagenBase64 = 'data:image/jpeg;base64,' + data.base64;
-          this.imagenes.push(imagenBase64);
-        })
-        
-    }
-  }
 }
 </script>
 
@@ -166,17 +98,4 @@ export default {
     height: 280px;
   }
 
-  .enlaces a {
-    color: aliceblue;
-    text-decoration: none;
-  }
-
-  .iconos a:hover {
-    color: #6bc4fe;
-  }
-
-  .carousel-item img {
-    width: 100%;
-    height: auto;
-  }
 </style>

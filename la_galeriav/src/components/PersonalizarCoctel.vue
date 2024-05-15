@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 id="titulo">¡Seleccione el cóctel que mas le guste!</h3>
     <div id="coctelContainer">
       <div v-for="coctel in cocteles" :key="coctel.id" class="container" @click="seleccionarCoctel(coctel.nombre, coctel.precio)">
         <div :id="'container-' + coctel.id" class="container"></div>
@@ -7,6 +8,7 @@
       </div>
     </div>
     <hr>
+    <h3>¡Eliga uno de nuestros vasos para su coctel!</h3>
     <div id="vasoContainer">
       <div v-for="vaso in vasos" :key="vaso.id" class="container" @click="seleccionarVaso(vaso.nombre, vaso.precio)">
         <div :id="'container-' + vaso.id" class="container"></div>
@@ -142,6 +144,13 @@ export default {
 </script>
 
 <style scoped>
+
+#titulo{
+  margin-top: 150px;
+}
+h3, #titulo{
+  text-align: center;
+}
 #coctelContainer, #vasoContainer {
   display: flex;
   justify-content: center;
