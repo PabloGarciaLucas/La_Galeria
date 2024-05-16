@@ -25,85 +25,123 @@ export default {
   },
   methods: {
     async fetchCocteles() {
-     
-        const response = await fetch('http://localhost:8080/galeria/v1/productos');
-        let data = await response.json();
+      const response = await fetch('http://localhost:8080/galeria/v1/productos');
+      let data = await response.json();
 
-        if (data.length > 3) {
-          data = data.slice(0, 3);
-        }
-        this.cocteles = data;
-        this.cocteles.forEach(coctel => {
-          this.traerImagen(coctel.id);
-        });
-    
+      if (data.length > 3) {
+        data = data.slice(0, 3);
+      }
+      this.cocteles = data;
+      this.cocteles.forEach(coctel => {
+        this.traerImagen(coctel.id);
+      });
     },
     async seleccionarCoctelYGenerarFactura(nombreCoctel, precioCoctel) {
-    
-        this.coctelSeleccionado = { nombre: nombreCoctel, precio: precioCoctel };
-        await this.insertarPedido(nombreCoctel, precioCoctel);
-        this.generarFactura();
-      
+      this.coctelSeleccionado = { nombre: nombreCoctel, precio: precioCoctel };
+      await this.insertarPedido(nombreCoctel, precioCoctel);
+      this.generarFactura();
     },
     async obtenerUltimoUsuario() {
-     
-        const response = await fetch('http://localhost:8080/galeria/v1/usuarios');
-        if (response.ok) {
-          const usuarios = await response.json();
-          if (usuarios.length > 0) {
-            usuarios.sort((a, b) => b.userID - a.userID);
-            const ultimoUsuario = usuarios[0];
-            return ultimoUsuario;
-          } else {
-            console.warn('No se encontraron usuarios en la base de datos.');
-            return null;
-          }
+      const response = await fetch('http://localhost:8080/galeria/v1/usuarios');
+      if (response.ok) {
+        const usuarios = await response.json();
+        if (usuarios.length > 0) {
+          usuarios.sort((a, b) => b.userID - a.userID);
+          const ultimoUsuario = usuarios[0];
+          return ultimoUsuario;
         } else {
-          console.error('Error al obtener la lista de usuarios:', response.statusText);
+          console.warn('No se encontraron usuarios en la base de datos.');
           return null;
         }
-     
+      } else {
+        console.error('Error al obtener la lista de usuarios:', response.statusText);
+        return null;
+      }
     },
 
-
+    
     async insertarPedido(nombreCoctel, precioCoctel) {
-  
+    try {
+        // Obtener el usuario actual
         const usuario = await this.obtenerUltimoUsuario();
         if (!usuario) {
-          throw new Error('No se pudo obtener el último usuario');
+            throw new Error('No se pudo obtener el último usuario');
         }
+
+        // Obtener la fecha y hora actuales
         const fecha = new Date();
         const fechaPedido = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')} ${fecha.getHours().toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')}:${fecha.getSeconds().toString().padStart(2, '0')}`;
-        const response = await fetch('http://localhost:8080/galeria/v1/pedidos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            usuario: usuario,
-            fechaPedido: fechaPedido,
-            nombreCoctel: nombreCoctel,
-            precioCoctel: precioCoctel
-          })
+
+        // Insertar el pedido en la tabla de pedidos
+        const pedidoResponse = await fetch('http://localhost:8080/galeria/v1/pedidos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                usuario: usuario,
+                fechaPedido: fechaPedido,
+                nombreCoctel: nombreCoctel,
+                precioCoctel: precioCoctel
+            })
         });
 
-        if (response.ok) {
-          console.log('Pedido insertado correctamente.');
-        } else {
-          console.error('Error al insertar el pedido.');
+        if (!pedidoResponse.ok) {
+            throw new Error('Error al insertar el pedido');
         }
-    
-    },
+
+        // Obtener los datos del pedido insertado
+        const pedidoData = await pedidoResponse.json();
+        const pedidoId = pedidoData.id;
+
+        // Obtener los detalles del producto
+        const productoResponse = await fetch(`http://localhost:8080/galeria/v1/productos?nombre=${nombreCoctel}`);
+        if (!productoResponse.ok) {
+            throw new Error('Error al obtener el producto');
+        }
+        const productoData = await productoResponse.json();
+        const producto = productoData[0];
+
+        // Crear los detalles del pedido
+        const detallePedidoData = {
+            id: pedidoId,
+            pedido: {
+                id: pedidoId,
+                usuario: usuario,
+                fechaPedido: fechaPedido
+            },
+            producto: producto,
+            cantidad: 1,
+            precio: producto.precio
+        };
+
+        // Insertar los detalles del pedido en la tabla de detallePedido
+        const detallePedidoResponse = await fetch('http://localhost:8080/galeria/v1/detallePedido', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(detallePedidoData)
+        });
+
+        if (detallePedidoResponse.ok) {
+            console.log('Pedido insertado correctamente.');
+        } else {
+            console.error('Error al insertar los detalles del pedido.');
+        }
+    } catch (error) {
+        console.error('Error al insertar el pedido:', error);
+    }
+},
+
 
 
     async recuperarNombreYPrecioCoctelDesdeBD(idCoctel) {
-     
-        const response = await fetch(`http://localhost:8080/galeria/v1/productos/${idCoctel}`);
-        const data = await response.json();
-        const nombreCoctel = data.nombre;
-        const precioCoctel = data.precio;
-        return { nombreCoctel, precioCoctel };
-     
+      const response = await fetch(`http://localhost:8080/galeria/v1/productos/${idCoctel}`);
+      const data = await response.json();
+      const nombreCoctel = data.nombre;
+      const precioCoctel = data.precio;
+      return { nombreCoctel, precioCoctel };
     },
     generarFactura() {
       if (this.coctelSeleccionado && this.coctelSeleccionado.nombre) {
