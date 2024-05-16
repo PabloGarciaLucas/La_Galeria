@@ -68,11 +68,11 @@ export default {
             throw new Error('No se pudo obtener el último usuario');
         }
 
-        // Obtener la fecha y hora actuales
+        
         const fecha = new Date();
         const fechaPedido = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')} ${fecha.getHours().toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')}:${fecha.getSeconds().toString().padStart(2, '0')}`;
 
-        // Insertar el pedido en la tabla de pedidos
+       
         const pedidoResponse = await fetch('http://localhost:8080/galeria/v1/pedidos', {
             method: 'POST',
             headers: {
@@ -90,11 +90,11 @@ export default {
             throw new Error('Error al insertar el pedido');
         }
 
-        // Obtener los datos del pedido insertado
+        
         const pedidoData = await pedidoResponse.json();
         const pedidoId = pedidoData.id;
 
-        // Obtener los detalles del producto
+        
         const productoResponse = await fetch(`http://localhost:8080/galeria/v1/productos?nombre=${nombreCoctel}`);
         if (!productoResponse.ok) {
             throw new Error('Error al obtener el producto');
@@ -102,7 +102,7 @@ export default {
         const productoData = await productoResponse.json();
         const producto = productoData[0];
 
-        // Crear los detalles del pedido
+       
         const detallePedidoData = {
             id: pedidoId,
             pedido: {
@@ -115,7 +115,7 @@ export default {
             precio: producto.precio
         };
 
-        // Insertar los detalles del pedido en la tabla de detallePedido
+      
         const detallePedidoResponse = await fetch('http://localhost:8080/galeria/v1/detallePedido', {
             method: 'POST',
             headers: {
