@@ -61,8 +61,7 @@ export default {
 
     
     async insertarPedido(nombreCoctel, precioCoctel) {
-    try {
-        // Obtener el usuario actual
+    try {     
         const usuario = await this.obtenerUltimoUsuario();
         if (!usuario) {
             throw new Error('No se pudo obtener el último usuario');
