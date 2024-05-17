@@ -1,6 +1,6 @@
 <template>
   <div id="containerSignIn" class="container">
-    <h1 class="tituloRegister">Register</h1>
+    <h1 class="tituloRegister">Register | Log in </h1>
     <p v-if="registroExitoso" class="registrado">Registro Realizado Correctamente</p>
     <form v-if="!registroExitoso" class="formularioRegister" @submit.prevent="register" :disabled="registroExitoso">
       <div class="form-group">
