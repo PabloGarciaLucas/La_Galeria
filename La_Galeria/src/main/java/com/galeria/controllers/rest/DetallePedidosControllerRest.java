@@ -7,6 +7,7 @@ import javax.naming.NamingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,7 +59,7 @@ public class DetallePedidosControllerRest {
 		return d;
 	}
 	
-	@PostMapping("/detallePedido")
+	@PostMapping(value = "/detallePedido", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity insertarDetalles(@RequestBody DetallePedidoEntity detallePedidoEntity) throws ClassNotFoundException, SQLException, NamingException {
 		
 		Integer resultado = detallePedidoServicio.insertarDetallePedidos(detallePedidoEntity.getProducto(), detallePedidoEntity.getPedido(), detallePedidoEntity.getCantidad(), detallePedidoEntity.getPrecio());

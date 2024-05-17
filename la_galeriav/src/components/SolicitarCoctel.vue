@@ -36,11 +36,13 @@ export default {
         this.traerImagen(coctel.id);
       });
     },
+
     async seleccionarCoctelYGenerarFactura(nombreCoctel, precioCoctel) {
       this.coctelSeleccionado = { nombre: nombreCoctel, precio: precioCoctel };
       await this.insertarPedido(nombreCoctel, precioCoctel);
       this.generarFactura();
     },
+
     async obtenerUltimoUsuario() {
       const response = await fetch('http://localhost:8080/galeria/v1/usuarios');
       if (response.ok) {
@@ -59,89 +61,99 @@ export default {
       }
     },
 
-    
-    async insertarPedido(nombreCoctel, precioCoctel) {
-    try {     
-        const usuario = await this.obtenerUltimoUsuario();
-        if (!usuario) {
-            throw new Error('No se pudo obtener el último usuario');
-        }
-
-        
-        const fecha = new Date();
-        const fechaPedido = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')} ${fecha.getHours().toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')}:${fecha.getSeconds().toString().padStart(2, '0')}`;
-
-       
-        const pedidoResponse = await fetch('http://localhost:8080/galeria/v1/pedidos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                usuario: usuario,
-                fechaPedido: fechaPedido,
-                nombreCoctel: nombreCoctel,
-                precioCoctel: precioCoctel
-            })
-        });
-
-        if (!pedidoResponse.ok) {
-            throw new Error('Error al insertar el pedido');
-        }
-
-        
-        const pedidoData = await pedidoResponse.json();
-        const pedidoId = pedidoData.id;
-
-        
-        const productoResponse = await fetch(`http://localhost:8080/galeria/v1/productos?nombre=${nombreCoctel}`);
-        if (!productoResponse.ok) {
-            throw new Error('Error al obtener el producto');
-        }
-        const productoData = await productoResponse.json();
-        const producto = productoData[0];
-
-       
-        const detallePedidoData = {
-            id: pedidoId,
-            pedido: {
-                id: pedidoId,
-                usuario: usuario,
-                fechaPedido: fechaPedido
-            },
-            producto: producto,
-            cantidad: 1,
-            precio: producto.precio
-        };
-
-      
-        const detallePedidoResponse = await fetch('http://localhost:8080/galeria/v1/detallePedido', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(detallePedidoData)
-        });
-
-        if (detallePedidoResponse.ok) {
-            console.log('Pedido insertado correctamente.');
-        } else {
-            console.error('Error al insertar los detalles del pedido.');
-        }
-    } catch (error) {
-        console.error('Error al insertar el pedido:', error);
-    }
-},
-
-
-
-    async recuperarNombreYPrecioCoctelDesdeBD(idCoctel) {
-      const response = await fetch(`http://localhost:8080/galeria/v1/productos/${idCoctel}`);
-      const data = await response.json();
-      const nombreCoctel = data.nombre;
-      const precioCoctel = data.precio;
-      return { nombreCoctel, precioCoctel };
+    async obtenerProductoPorNombre(nombreCoctel) {
+      const response = await fetch('http://localhost:8080/galeria/v1/productos');
+      if (!response.ok) {
+        throw new Error('Error al obtener los productos.');
+      }
+      const productos = await response.json();
+      const producto = productos.find(p => p.nombre === nombreCoctel);
+      if (!producto) {
+        throw new Error(`Producto con nombre ${nombreCoctel} no encontrado.`);
+      }
+      return { id: producto.id, precio: producto.precio };
     },
+
+    async obtenerUltimoPedidoId() {
+      const response = await fetch('http://localhost:8080/galeria/v1/pedidos');
+      if (!response.ok) {
+        throw new Error('Error al obtener los pedidos.');
+      }
+      const pedidos = await response.json();
+      const ultimoPedido = pedidos[pedidos.length - 1]; // Suponiendo que el último pedido es el último en el array
+      return ultimoPedido.id;
+    },
+
+    async insertarDetallePedido(pedidoId, productoId, precioUnitario) {
+      const response = await fetch('http://localhost:8080/galeria/v1/detallePedido', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          pedido: { id: pedidoId },
+          producto: { id: productoId },
+          cantidad: 1, // Supongamos que se inserta solo una unidad
+          precio: precioUnitario
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Error al insertar el detalle del pedido.');
+      }
+      console.log('Detalle del pedido insertado correctamente.');
+    },
+
+    async insertarPedido(nombreCoctel, precioCoctel) {
+      const usuario = await this.obtenerUltimoUsuario();
+      if (!usuario) {
+        throw new Error('No se pudo obtener el último usuario');
+      }
+      const fecha = new Date();
+      const fechaPedido = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')} ${fecha.getHours().toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')}:${fecha.getSeconds().toString().padStart(2, '0')}`;
+      const response = await fetch('http://localhost:8080/galeria/v1/pedidos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          usuario: usuario,
+          fechaPedido: fechaPedido,
+          nombreCoctel: nombreCoctel,
+          precioCoctel: precioCoctel
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al insertar el pedido.');
+      }
+
+      // Verificar si la respuesta es JSON
+      let pedidoData;
+      try {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          pedidoData = await response.json();
+        } else {
+          throw new Error('Respuesta inesperada del servidor.');
+        }
+      } catch (error) {
+        const responseBody = await response.text();
+        console.log(responseBody);
+        throw new Error('Error al procesar la respuesta del servidor: ' + responseBody);
+      }
+
+      console.log('Pedido insertado correctamente.', pedidoData);
+
+      // Obtener el ID del nuevo pedido
+      const pedidoId = pedidoData.id;
+
+      // Obtener el ID y precio del producto
+      const { id: productoId, precio: precioUnitario } = await this.obtenerProductoPorNombre(nombreCoctel);
+
+      // Insertar el detalle del pedido
+      await this.insertarDetallePedido(pedidoId, productoId, precioUnitario);
+    },
+
     generarFactura() {
       if (this.coctelSeleccionado && this.coctelSeleccionado.nombre) {
         const doc = new jsPDF();
@@ -152,6 +164,7 @@ export default {
         alert('Por favor, selecciona un cóctel antes de generar la factura.');
       }
     },
+
     traerImagen(id) {
       fetch(`http://localhost:8080/galeria/v1/imagenes/${id}`)
         .then(response => {
@@ -163,6 +176,7 @@ export default {
         .then(data => this.anadeImg(data.imagen, id))
         .catch(error => console.error(error));
     },
+
     anadeImg(base64, id) {
       const container = document.querySelector(`#container-${id}`);
       if (container) {
@@ -178,11 +192,14 @@ export default {
       }
     },
   },
+
   mounted() {
     this.fetchCocteles();
   }
 }
 </script>
+
+
 
 <style scoped>
 #coctelContainer {
