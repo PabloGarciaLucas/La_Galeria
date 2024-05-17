@@ -5,6 +5,7 @@
       <router-link to="/solicitarProducto" class="nav-link">Solicitar un Producto</router-link>
       <router-link to="/dudas" class="nav-link">Dudas</router-link>
       <router-link to="/signin" class="nav-link">Sign In</router-link>
+      <router-link to="/login" class="nav-link">Log In</router-link>
     </nav>
    
     <footer class="footer">

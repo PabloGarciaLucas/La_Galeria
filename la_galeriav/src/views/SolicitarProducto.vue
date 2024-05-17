@@ -10,24 +10,24 @@
     </div>
     <div class="row">
       <div class="caja mb-3 col-md-6">
-        <router-link v-if="registroExitoso" to="/solicitarCoctel" class="enlace text-decoration-none">
+        <router-link v-if="isLoggedIn" to="/solicitarCoctel" class="enlace text-decoration-none">
           <h3 class="titulo mb-2">Solicitar Cóctel</h3>
           <p>¡Elige un cóctel de nuestra lista y te lo prepararemos con los mejores ingredientes!</p>
           <div id="imagenCoctelA"></div>
         </router-link>
-        <router-link v-else to="/sign-in" class="enlace text-decoration-none">
+        <router-link v-else to="/login" class="enlace text-decoration-none">
           <h3 class="titulo mb-2">Solicitar Cóctel</h3>
           <p>¡Elige un cóctel de nuestra lista y te lo prepararemos con los mejores ingredientes!</p>
           <div id="imagenCoctelA"></div>
         </router-link>
       </div>
       <div class="caja mb-3 col-md-6">
-        <router-link v-if="registroExitoso" to="/personalizarCoctel" class="enlace text-decoration-none">
+        <router-link v-if="isLoggedIn" to="/personalizarCoctel" class="enlace text-decoration-none">
           <h3 class="titulo mb-2">Personalizar Cóctel</h3>
           <p>¡Crea tu propio cóctel personalizado eligiendo los ingredientes que más te gusten!</p>
           <div id="imagenCoctelB"></div>
         </router-link>
-        <router-link v-else to="/sign-in" class="enlace text-decoration-none">
+        <router-link v-else to="/login" class="enlace text-decoration-none">
           <h3 class="titulo mb-2">Personalizar Cóctel</h3>
           <p>¡Crea tu propio cóctel personalizado eligiendo los ingredientes que más te gusten!</p>
           <div id="imagenCoctelB"></div>
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       imagenes: [],
-      registroExitoso: JSON.parse(localStorage.getItem('registroExitoso')) || false 
+      isLoggedIn: JSON.parse(localStorage.getItem('isLoggedIn')) || false
     }
   },
   methods: {
@@ -69,15 +69,16 @@ export default {
     },
   },
   mounted() {
+  if (!this.isLoggedIn) {
+    this.$router.push('/login');
+  } else {
     this.traerImagenA();
     this.traerImagenB();
-    if (!this.registroExitoso) {
-      this.$router.push('/signin');
-    }
   }
 }
-</script>
 
+}
+</script>
 
 <style scoped>
 #solicitarProducto {

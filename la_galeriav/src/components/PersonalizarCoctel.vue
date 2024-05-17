@@ -71,45 +71,39 @@ export default {
       
       await this.insertarPedido(this.coctelSeleccionado.nombre, this.coctelSeleccionado.precio);
     },
-    async obtenerUltimoUsuario() {
-        const response = await fetch('http://localhost:8080/galeria/v1/usuarios');
-        if (response.ok) {
-          const usuarios = await response.json();
-          if (usuarios.length > 0) {
-            usuarios.sort((a, b) => b.userID - a.userID);
-            const ultimoUsuario = usuarios[0];
-            return ultimoUsuario;
-          } else {
-            console.warn('No se encontraron usuarios en la base de datos.');
-            return null;
-          }
-        } else {
-          console.error('Error al obtener la lista de usuarios:', response.statusText);
-          return null;
-        }
-    },
     async insertarPedido(nombreCoctel, precioCoctel) {
-        const usuario = await this.obtenerUltimoUsuario();
-        const fecha = new Date();
-        const fechaPedido = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')} ${fecha.getHours().toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')}:${fecha.getSeconds().toString().padStart(2, '0')}`;
-        const response = await fetch('http://localhost:8080/galeria/v1/pedidos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            usuario: usuario,
-            fechaPedido: fechaPedido,
-            nombreCoctel: nombreCoctel,
-            precioCoctel: precioCoctel
-          })
-        });
-        if (response.ok) {
-          console.log('Pedido insertado correctamente.');
-        } else {
-          console.error('Error al insertar el pedido.');
-       } 
-    },
+  try {
+    const usuario = JSON.parse(localStorage.getItem('user'));
+    if (!usuario) {
+      throw new Error('Usuario no encontrado en el almacenamiento local.');
+    }
+
+    const fecha = new Date();
+    const fechaPedido = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${fecha.getDate().toString().padStart(2, '0')} ${fecha.getHours().toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')}:${fecha.getSeconds().toString().padStart(2, '0')}`;
+
+    const response = await fetch('http://localhost:8080/galeria/v1/pedidos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        usuario: usuario,
+        fechaPedido: fechaPedido,
+        nombreCoctel: nombreCoctel,
+        precioCoctel: precioCoctel
+      })
+    });
+
+    if (response.ok) {
+      console.log('Pedido insertado correctamente.');
+    } else {
+      console.error('Error al insertar el pedido.');
+    }
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+},
+
     traerImagen(id) {
       fetch(`http://localhost:8080/galeria/v1/imagenes/${id}`)
       .then(response => {
